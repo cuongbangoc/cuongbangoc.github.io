@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1</title>
 
@@ -35,28 +34,28 @@
 <meta name="msapplication-config" content="/assets/img/browserconfig.xml?v=wAAv6Wqe6l">
 <meta name="theme-color" content="#e74c3c">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=40fb1f9047" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=0042b65baf">
 
-  <link rel="canonical" href="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/" />
+  <link rel="canonical" href="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">
     
-    <meta property="og:site_name" content="CuongBN - Just Do It" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1" />
-    <meta property="og:description" content="This article is the first post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ Introduction In the distributed systems or systems is designed with micro services, to..." />
-    <meta property="og:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/" />
-    <meta property="article:published_time" content="2015-08-26T14:41:56.000Z" />
-    <meta property="article:modified_time" content="2015-08-26T14:41:56.000Z" />
-    <meta property="article:tag" content="consumer" />
-    <meta property="article:tag" content="git" />
-    <meta property="article:tag" content="Linux" />
-    <meta property="article:tag" content="producer" />
-    <meta property="article:tag" content="protocol buffer" />
-    <meta property="article:tag" content="rabbitmq" />
+    <meta property="og:site_name" content="CuongBN - Just Do It">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1">
+    <meta property="og:description" content="This article is the first post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ Introduction In the distributed systems or systems is designed with micro services, to...">
+    <meta property="og:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">
+    <meta property="article:published_time" content="2015-08-26T14:41:56.000Z">
+    <meta property="article:modified_time" content="2015-08-30T14:16:01.916Z">
+    <meta property="article:tag" content="consumer">
+    <meta property="article:tag" content="git">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="producer">
+    <meta property="article:tag" content="protocol buffer">
+    <meta property="article:tag" content="rabbitmq">
     
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1" />
-    <meta name="twitter:description" content="This article is the first post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ Introduction In the distributed systems or systems is designed with micro services, to..." />
-    <meta name="twitter:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1">
+    <meta name="twitter:description" content="This article is the first post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ Introduction In the distributed systems or systems is designed with micro services, to...">
+    <meta name="twitter:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">
     
     <script type="application/ld+json">
 {
@@ -74,14 +73,14 @@
     "headline": "Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1",
     "url": "http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/",
     "datePublished": "2015-08-26T14:41:56.000Z",
-    "dateModified": "2015-08-26T14:41:56.000Z",
+    "dateModified": "2015-08-30T14:16:01.916Z",
     "keywords": "consumer, git, Linux, producer, protocol buffer, rabbitmq",
     "description": "This article is the first post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ Introduction In the distributed systems or systems is designed with micro services, to..."
 }
     </script>
 
-    <meta name="generator" content="Ghost 0.6" />
-    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/" />
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/">
     <script>
 var profile_title = 'Cuong Ba Ngoc';
 var profile_resume ='Software Engineer';
@@ -91,7 +90,7 @@ var profile_resume ='Software Engineer';
 <body class="post-template tag-consumer tag-git-2 tag-linux tag-producer tag-protocol-buffer tag-rabbitmq">
 
   <section id="menu-button" class="expanded">
-    <a><i class="icon icon-list"></i></a>
+    <a href="index.html"><i class="icon icon-list"></i></a>
   </section>
 
   <aside class="cover">
@@ -99,22 +98,22 @@ var profile_resume ='Software Engineer';
   <div class="cover container">
     <div class="profile">
       <a id="avatar-link" title="link to homepage for CuongBN - Just Do It" href="http://cuongbangoc.github.io/#open">
-        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out" />
+        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out">
         <h1 id="profile-title">CuongBN - Just Do It</h1>
         <h3 id="profile-resume"></h3>
       </a>
 
-      <hr class="divider long" />
-      <p>Software Engineer, I&#x27;m a man passionate about programming languages, new technologies and open-sources...</p>
-      <hr class="divider short" />
+      <hr class="divider long">
+      <p>Software Engineer, I'm a man passionate about programming languages, new technologies and open-sources...</p>
+      <hr class="divider short">
       <div class="navigation">
         <div class="profile contact">
           <nav class="navigation left">
   <ul class="links">
     <li class="links item">
       <a href="http://cuongbangoc.github.io/#open" class="link-item" title="CuongBN - Just Do It blog" id="blog-button">Blog</a>
-        <a href="../index.html" class="link-item" id="-button">Home</a>
-        <a href="../about/index.html" class="link-item" id="-button">About</a>
+        <a href="../" class="link-item" id="-button">Home</a>
+        <a href="../about/" class="link-item" id="-button">About</a>
     </li>
   </ul>
 </nav>
@@ -133,7 +132,7 @@ var profile_resume ='Software Engineer';
   <!-- Linkedin -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="http://linkedin.com/in/cuongbangoc" title="CuongBaNgoc on LinkedIn">
-      <i class='icon icon-social-linkedin'></i>
+      <i class="icon icon-social-linkedin"></i>
       <span class="label">Linkedin</span>
     </a>
   </li>
@@ -141,7 +140,7 @@ var profile_resume ='Software Engineer';
   <!-- Github -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="https://github.com/cuongbangoc" title="CuongBaNgoc on Github">
-      <i class='icon icon-social-github'></i>
+      <i class="icon icon-social-github"></i>
       <span class="label">Github</span>
     </a>
   </li>
@@ -149,15 +148,15 @@ var profile_resume ='Software Engineer';
   <!-- Facebook -->
     <li class="social item hvr-grow-rotate">
       <a target="blank" href="http://facebook.com/ngoccuongkaka" title="CuongBaNgoc on Facebook">
-        <i class='icon icon-social-facebook'></i>
+        <i class="icon icon-social-facebook"></i>
         <span class="label">Facebook</span>
       </a>
     </li>
 
   <!-- RSS -->
   <li class="social item hvr-grow-rotate">
-    <a href="../rss/index.html" title="Subscribe to RSS">
-      <i class='icon icon-rss'></i>
+    <a href="../rss/index.rss" title="Subscribe to RSS">
+      <i class="icon icon-rss"></i>
       <span class="label">RSS</span>
     </a>
   </li>
@@ -165,9 +164,9 @@ var profile_resume ='Software Engineer';
   </ul>
 </nav>
           <section class="icon icon-search" id="search-container">
-  <hr class="divider short" />
+  <hr class="divider short">
   <form id="search-form">
-    <input type="text", name="search", placeholder="git, css, javascript,..." id="search-field" />
+    <input type="text" name="search" placeholder="git, css, javascript,..." id="search-field">
   </form>
 </section>
         </div>
@@ -185,13 +184,13 @@ var profile_resume ='Software Engineer';
     <header>
       <div class="post meta">
         <time datetime="26 Aug 2015">26 Aug 2015</time>
-        <span class="post tags">in <a href="../tag/consumer/index.html">consumer</a> <a href="../tag/git-2/index.html">git</a> <a href="../tag/linux/index.html">Linux</a> <a href="../tag/producer/index.html">producer</a> <a href="../tag/protocol-buffer/index.html">protocol buffer</a> <a href="../tag/rabbitmq/index.html">rabbitmq</a></span>
+        <span class="post tags">in <a href="../tag/consumer/">consumer</a> <a href="../tag/git-2/">git</a> <a href="../tag/linux/">Linux</a> <a href="../tag/producer/">producer</a> <a href="../tag/protocol-buffer/">protocol buffer</a> <a href="../tag/rabbitmq/">rabbitmq</a></span>
 
 
         <span class="post reading-time"> ~ <span></span> read.</span>
       </div>
 
-      <a alt="Tweet 'Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1'" href="https://twitter.com/intent/tweet?text=Protocol%20Buffers%20and%20RabbitMQ%20on%20Ubuntu%2014.04%20Part%201 %20%C2%BB%20&amp;url=http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/" >
+      <a alt="Tweet 'Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1'" href="https://twitter.com/intent/tweet?text=Protocol%20Buffers%20and%20RabbitMQ%20on%20Ubuntu%2014.04%20Part%201%20%20%C2%BB%20&amp;url=http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">
         
         <h1 class="icon-reverse icon-social-twitter-post" id="post-title">Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1</h1>
       </a>
@@ -201,13 +200,13 @@ var profile_resume ='Software Engineer';
       <h5 id="thisarticleisthefirstpostinseries">This article is the first post in series:</h5>
 
 <ul>
-<li><a href="https://cuongba.wordpress.com/2015/08/26/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">Introduce Protocol buffer and install protocol buffer compiler</a></li>
-<li><a href="https://cuongba.wordpress.com/2015/08/26/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">Wrire Producer and Consumer to work with protocol buffer and RabbitMQ</a></li>
+<li><a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">Introduce Protocol buffer and install protocol buffer compiler</a></li>
+<li><a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">Wrire Producer and Consumer to work with protocol buffer and RabbitMQ</a></li>
 </ul>
 
 <h3 id="introduction">Introduction</h3>
 
-<p>In the <span class="short_text" id="result_box" lang="en"><span class="hps">distributed systems</span></span> or systems is designed with micro services, to communicate between other systems is important. <a href="https://cuongba.wordpress.com/2015/08/05/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/">In the <span class="short_text" id="result_box" lang="en"><span class="hps">previous</span></span> article</a>, I am shown to you use JSON format to transfer data with RabbitMQ. In this article, I will show to you how to use <em>*Protocol Buffers *</em>to encode, decode data and transfer data with RabbitMQ as Queue in your system.</p>
+<p>In the distributed systems or systems is designed with micro services, to communicate between other systems is important. <a href="https://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/">In the previous article</a>, I am shown to you use JSON format to transfer data with RabbitMQ. In this article, I will show to you how to use <strong>Protocol Buffers</strong> to encode, decode data and transfer data with RabbitMQ as Queue in your system.</p>
 
 <p>Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler. It is developed by Google. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.</p>
 
@@ -221,108 +220,76 @@ var profile_resume ='Software Engineer';
 <li><strong>Step 5</strong>: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server</li>
 </ul>
 
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsprerequisitesspanspan"><span class="short_text" id="result_box" lang="en"><span class="hps">Prerequisites</span></span></h3>
+<h3 id="prerequisites">Prerequisites</h3>
 
 <p>You must have RabbitMQ in your systems. If you do not have RabbitMQ, Please read this post and install it.</p>
 
 <ul>
-<li><a href="https://cuongba.wordpress.com/2015/08/05/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/">Install RabbitMQ</a></li>
+<li><a href="https://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/">Install RabbitMQ</a></li>
 </ul>
 
-<h3 id=""> </h3>
-
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsstep1installprotocolbuffercompileronubuntu1404"><span class="short_text" id="result_box" lang="en"><span class="hps">Step 1: Install Protocol buffer compiler on Ubuntu 14.04</h3>
-
-<p></span></span></p>
+<h3 id="step1installprotocolbuffercompileronubuntu1404">Step 1: Install Protocol buffer compiler on Ubuntu 14.04</h3>
 
 <ul>
-<li><p>Installing gcc compiler on Ubuntu</p>
-
-<p>  <br />
-[sourcecode language=”bash” wraplines=”false” collapse=”false”] <br />
-sudo apt-get update <br />
-sudo apt-get install build-essential</p></li>
+<li>Installing gcc compiler on Ubuntu</li>
 </ul>
 
-<h1 id="checkgcc">check gcc</h1>
+<pre><code class="language-prettyprint lang-bash">sudo apt-get update  
+sudo apt-get install build-essential
 
-<p>gcc -v</p>
-
-<p>[/sourcecode] <br />
-  </p>
+#check gcc  
+gcc -v  
+</code></pre>
 
 <ul>
-<li><p>Download and Extract the protocol buffer archive</p>
-
-<p>  <br />
-[code language=”bash” wraplines=”false” collapse=”false”]</p></li>
+<li>Download and Extract the protocol buffer archive</li>
 </ul>
 
-<p>wget <a href="https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz">https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz</a> <br />
- tar -xzvf protobuf-2.6.1.tar.gz</p>
-
-<p>[/code] <br />
-  </p>
+<pre><code class="language-prettyprint lang-bash">wget https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz  
+tar -xzvf protobuf-2.6.1.tar.gz  
+</code></pre>
 
 <ul>
-<li><p>Install Protocol buffer compiler</p>
-
-<p>  <br />
-[code language=”bash” wraplines=”false” collapse=”false”] <br />
-cd protobuf-2.6.1 <br />
-sudo ./configure <br />
-make <br />
-make check <br />
-sudo make install <br />
-protoc –version</p></li>
+<li>Install Protocol buffer compiler</li>
 </ul>
 
-<p>[/code] <br />
-  </p>
+<pre><code class="language-prettyprint lang-bash  ">cd protobuf-2.6.1  
+sudo ./configure  
+make  
+make check  
+sudo make install  
+protoc –version  
+</code></pre>
 
 <p>Sometimes the latest version of protocol version does not load up. So we can do it manually by this command:</p>
 
-<p>  <br />
- [code language=”bash” wraplines=”false” collapse=”false”] <br />
- sudo ldconfig <br />
- protoc –version</p>
+<pre><code class="language-prettyprint lang-bash  ">sudo ldconfig  
+protoc –version  
+</code></pre>
 
-<p>[/code] <br />
-  </p>
-
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsstep2definemessagestructureformatsinaprotofile"><span class="short_text" id="result_box" lang="en"><span class="hps">Step 2: Define message structure formats in a <code>.proto</code> file</h3>
-
-<p></span></span></p>
+<h3 id="step2definemessagestructureformatsinaprotofile">Step 2: Define message structure formats in a <code>.proto</code> file</h3>
 
 <p>In this step, You need to define your data which you want to send to Rabbit. I will define a message for User information and a message for ListUsers.</p>
 
-<p>  <br />
- [code language=”bash” wraplines=”false” collapse=”false”]</p>
+<pre><code class="language-prettyprint lang-bash">mkdir protocol_buffers_python  
+cd protocol_buffers_python  
+vim users.proto  
+</code></pre>
 
-<p>mkdir protocol<em>buffers</em>python <br />
- cd protocol<em>buffers</em>python <br />
- vim users.proto</p>
+<p>And content of <em>users.proto :</em> <br>
+   </p>
 
-<p>[/code] <br />
-  </p>
+<pre><code class="language-prettyprint lang-java  ">package tutorial;  
+message User {  
+     required string name = 1;  
+     required int32 id = 2;  
+     optional string email = 3;  
+}
 
-<p>And content of <em>users.proto :</em></p>
-
-<p>  <br />
- [code language=”java” wraplines=”false” collapse=”false”] <br />
- package tutorial; <br />
- message User { <br />
-     required string name = 1; <br />
-     required int32 id = 2; <br />
-     optional string email = 3; <br />
- }</p>
-
-<p>message ListUsers { <br />
-     repeated User user = 1; <br />
- }</p>
-
-<p>[/code] <br />
-  </p>
+message ListUsers {  
+     repeated User user = 1;  
+}
+</code></pre>
 
 <p>As you can see, the syntax is similar to C++ or Java. Let’s go through each part of the file and see what it does.</p>
 
@@ -342,19 +309,12 @@ protoc –version</p></li>
 
 <p>You’ll find a complete guide to writing <code>.proto</code> files – including all the possible field types – in the <a href="https://developers.google.com/protocol-buffers/docs/proto">Protocol Buffer Language Guide</a></p>
 
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsstep3usetheprotocolbuffercompiler"><span class="short_text" id="result_box" lang="en"><span class="hps">Step 3: Use the protocol buffer compiler</h3>
-
-<p></span></span></p>
+<h3 id="step3usetheprotocolbuffercompiler">Step 3: Use the protocol buffer compiler</h3>
 
 <p>Now that you have a <code>.proto</code>, the next thing you need to do is generate the classes you’ll need to read and write ListUsers message. To compiler you can type:</p>
 
-<p>  <br />
- [code language=”bash” wraplines=”false” collapse=”false”]</p>
-
-<p>protoc -I=$SRC<em>DIR –python</em>out=$DST<em>DIR $SRC</em>DIR/users.proto</p>
-
-<p>[/code] <br />
-  </p>
+<pre><code class="language-prettyprint lang-bash">protoc -I=$SRC_DIR –python_out=$DST_DIR $SRC_DIR/users.proto  
+</code></pre>
 
 <ul>
 <li>$SRC_DIR : where your application’s source code lives</li>
@@ -363,15 +323,12 @@ protoc –version</p></li>
 
 <p>To me, it is:</p>
 
-<p>  <br />
- [code language=”bash” wraplines=”false” collapse=”false”]</p>
+<pre><code class="language-prettyprint lang-bash">protoc -I=/home/ngoccuong/working/source_code/protocol_buffers_python \  
+--python_out=/home/ngoccuong/working/source_code/protocol_buffers_python \ 
+/home/ngoccuong/working/source_code/protocol_buffers_python/users.proto
+</code></pre>
 
-<p>protoc -I=/home/ngoccuong/working/source<em>code/protocol</em>buffers<em>python –python</em>out=/home/ngoccuong/working/source<em>code/protocol</em>buffers<em>python /home/ngoccuong/working/source</em>code/protocol<em>buffers</em>python/users.proto</p>
-
-<p>[/code] <br />
-  </p>
-
-<p>Because I want Python classes, I use the <code>--python_out</code> option – similar options are provided for other supported languages. With Java, it is <strong>–java_out.</strong></p>
+<p>Because I want Python classes, I use the <code>--python_out</code> option – similar options are provided for other supported languages. With Java, it is <code>–-java_out</code>.</p>
 
 <p>This generates <code>users_pb2.py</code> in your specified destination directory.</p>
 
@@ -383,9 +340,9 @@ protoc –version</p></li>
     </div>
 
     <div class="post related">
-        <a rel="prev" id="prev-btn" class="btn small square" href="../installing-node-js-on-ubuntu-14-04/index.html">← Installing Node.js on Ubuntu 14.04</a>
+        <a rel="prev" id="prev-btn" class="btn small square" href="../installing-node-js-on-ubuntu-14-04/">← Installing Node.js on Ubuntu 14.04</a>
 
-        <a rel="next" id="next-btn" class="btn small square" href="../protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/index.html">Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2 →</a>
+        <a rel="next" id="next-btn" class="btn small square" href="../protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2 →</a>
     </div>
 
     <footer class="post comments">
@@ -406,15 +363,15 @@ protoc –version</p></li>
 
       <footer>
   <span class="copyright">
-   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> &copy; 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
+   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> © 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
   </span>
 </footer>
     </section>
   </main>
 
-  <script src="../public/jquery.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/run_prettify.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/uno.js?v=40fb1f9047"></script>
+  <script src="../public/jquery.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/run_prettify.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/uno.js?v=0042b65baf"></script>
   <script>
   if (window.ga_id) {
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -427,4 +384,3 @@ protoc –version</p></li>
   }
 </script>
 </body>
-</html>

@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04</title>
 
@@ -35,26 +34,26 @@
 <meta name="msapplication-config" content="/assets/img/browserconfig.xml?v=wAAv6Wqe6l">
 <meta name="theme-color" content="#e74c3c">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=40fb1f9047" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=0042b65baf">
 
-  <link rel="canonical" href="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/" />
+  <link rel="canonical" href="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/">
     
-    <meta property="og:site_name" content="CuongBN - Just Do It" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04" />
-    <meta property="og:description" content="Introduction When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server. In this guide, I will show..." />
-    <meta property="og:url" content="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/" />
-    <meta property="article:published_time" content="2015-02-24T00:33:53.000Z" />
-    <meta property="article:modified_time" content="2015-02-24T00:33:53.000Z" />
-    <meta property="article:tag" content="Linux" />
-    <meta property="article:tag" content="Nginx" />
-    <meta property="article:tag" content="Server block" />
-    <meta property="article:tag" content="Virtual host" />
+    <meta property="og:site_name" content="CuongBN - Just Do It">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04">
+    <meta property="og:description" content="Introduction When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server. In this guide, I will show...">
+    <meta property="og:url" content="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/">
+    <meta property="article:published_time" content="2015-02-24T00:33:53.000Z">
+    <meta property="article:modified_time" content="2015-08-30T11:53:58.542Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Nginx">
+    <meta property="article:tag" content="Server block">
+    <meta property="article:tag" content="Virtual host">
     
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04" />
-    <meta name="twitter:description" content="Introduction When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server. In this guide, I will show..." />
-    <meta name="twitter:url" content="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04">
+    <meta name="twitter:description" content="Introduction When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server. In this guide, I will show...">
+    <meta name="twitter:url" content="http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/">
     
     <script type="application/ld+json">
 {
@@ -72,14 +71,14 @@
     "headline": "Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04",
     "url": "http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/",
     "datePublished": "2015-02-24T00:33:53.000Z",
-    "dateModified": "2015-02-24T00:33:53.000Z",
+    "dateModified": "2015-08-30T11:53:58.542Z",
     "keywords": "Linux, Nginx, Server block, Virtual host",
     "description": "Introduction When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server. In this guide, I will show..."
 }
     </script>
 
-    <meta name="generator" content="Ghost 0.6" />
-    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/" />
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/">
     <script>
 var profile_title = 'Cuong Ba Ngoc';
 var profile_resume ='Software Engineer';
@@ -89,7 +88,7 @@ var profile_resume ='Software Engineer';
 <body class="post-template tag-linux tag-nginx tag-server-block tag-virtual-host">
 
   <section id="menu-button" class="expanded">
-    <a><i class="icon icon-list"></i></a>
+    <a href="index.html"><i class="icon icon-list"></i></a>
   </section>
 
   <aside class="cover">
@@ -97,22 +96,22 @@ var profile_resume ='Software Engineer';
   <div class="cover container">
     <div class="profile">
       <a id="avatar-link" title="link to homepage for CuongBN - Just Do It" href="http://cuongbangoc.github.io/#open">
-        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out" />
+        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out">
         <h1 id="profile-title">CuongBN - Just Do It</h1>
         <h3 id="profile-resume"></h3>
       </a>
 
-      <hr class="divider long" />
-      <p>Software Engineer, I&#x27;m a man passionate about programming languages, new technologies and open-sources...</p>
-      <hr class="divider short" />
+      <hr class="divider long">
+      <p>Software Engineer, I'm a man passionate about programming languages, new technologies and open-sources...</p>
+      <hr class="divider short">
       <div class="navigation">
         <div class="profile contact">
           <nav class="navigation left">
   <ul class="links">
     <li class="links item">
       <a href="http://cuongbangoc.github.io/#open" class="link-item" title="CuongBN - Just Do It blog" id="blog-button">Blog</a>
-        <a href="../index.html" class="link-item" id="-button">Home</a>
-        <a href="../about/index.html" class="link-item" id="-button">About</a>
+        <a href="../" class="link-item" id="-button">Home</a>
+        <a href="../about/" class="link-item" id="-button">About</a>
     </li>
   </ul>
 </nav>
@@ -131,7 +130,7 @@ var profile_resume ='Software Engineer';
   <!-- Linkedin -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="http://linkedin.com/in/cuongbangoc" title="CuongBaNgoc on LinkedIn">
-      <i class='icon icon-social-linkedin'></i>
+      <i class="icon icon-social-linkedin"></i>
       <span class="label">Linkedin</span>
     </a>
   </li>
@@ -139,7 +138,7 @@ var profile_resume ='Software Engineer';
   <!-- Github -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="https://github.com/cuongbangoc" title="CuongBaNgoc on Github">
-      <i class='icon icon-social-github'></i>
+      <i class="icon icon-social-github"></i>
       <span class="label">Github</span>
     </a>
   </li>
@@ -147,15 +146,15 @@ var profile_resume ='Software Engineer';
   <!-- Facebook -->
     <li class="social item hvr-grow-rotate">
       <a target="blank" href="http://facebook.com/ngoccuongkaka" title="CuongBaNgoc on Facebook">
-        <i class='icon icon-social-facebook'></i>
+        <i class="icon icon-social-facebook"></i>
         <span class="label">Facebook</span>
       </a>
     </li>
 
   <!-- RSS -->
   <li class="social item hvr-grow-rotate">
-    <a href="../rss/index.html" title="Subscribe to RSS">
-      <i class='icon icon-rss'></i>
+    <a href="../rss/index.rss" title="Subscribe to RSS">
+      <i class="icon icon-rss"></i>
       <span class="label">RSS</span>
     </a>
   </li>
@@ -163,9 +162,9 @@ var profile_resume ='Software Engineer';
   </ul>
 </nav>
           <section class="icon icon-search" id="search-container">
-  <hr class="divider short" />
+  <hr class="divider short">
   <form id="search-form">
-    <input type="text", name="search", placeholder="git, css, javascript,..." id="search-field" />
+    <input type="text" name="search" placeholder="git, css, javascript,..." id="search-field">
   </form>
 </section>
         </div>
@@ -183,13 +182,13 @@ var profile_resume ='Software Engineer';
     <header>
       <div class="post meta">
         <time datetime="24 Feb 2015">24 Feb 2015</time>
-        <span class="post tags">in <a href="../tag/linux/index.html">Linux</a> <a href="../tag/nginx/index.html">Nginx</a> <a href="../tag/server-block/index.html">Server block</a> <a href="../tag/virtual-host/index.html">Virtual host</a></span>
+        <span class="post tags">in <a href="../tag/linux/">Linux</a> <a href="../tag/nginx/">Nginx</a> <a href="../tag/server-block/">Server block</a> <a href="../tag/virtual-host/">Virtual host</a></span>
 
 
         <span class="post reading-time"> ~ <span></span> read.</span>
       </div>
 
-      <a alt="Tweet 'Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04'" href="https://twitter.com/intent/tweet?text=Set%20Up%20Nginx%20Server%20Blocks%20(Virtual%20Hosts)%20on%20Ubuntu%2014.04 %20%C2%BB%20&amp;url=http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/" >
+      <a alt="Tweet 'Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04'" href="https://twitter.com/intent/tweet?text=Set%20Up%20Nginx%20Server%20Blocks%20(Virtual%20Hosts)%20on%20Ubuntu%2014.04%20%20%C2%BB%20&amp;url=http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/">
         
         <h1 class="icon-reverse icon-social-twitter-post" id="post-title">Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04</h1>
       </a>
@@ -206,22 +205,25 @@ var profile_resume ='Software Engineer';
 
 <p>By default, Nginx on Ubuntu 14.04 has one server block enabled by default. It is configured to serve documents out of a directory at:</p>
 
-<pre><code>/usr/share/nginx/html
+<pre><code class="language-prettyprint lang-bash">/usr/share/nginx/html
 </code></pre>
 
 <p>I won’t use the default since it is easier to work with things in the <code>/var/www</code> directory. So I will change document root directory to /var/www.</p>
 
 <p>First, we need to create the necessary directories. We can do this with the following command. The <code>-p </code>flag tells <code>mkdir</code> to create any necessary parent directories along the way:</p>
 
-<p>sudo mkdir -p /var/www/<span class="highlight">test.com</span>/html</p>
+<pre><code class="language-prettyprint lang-bash">sudo mkdir -p /var/www/test.com/html  
+</code></pre>
 
 <p>Now that you have your directories created, we need to transfer ownership to our regular user. We can use the <code>$USER</code> environmental variable to substitute the user account that we are currently signed in on. This will allow us to create files in this directory without allowing our visitors to create content.</p>
 
-<p>sudo chown -R $USER:$USER /var/www/<span class="highlight">test.com</span>/html</p>
+<pre><code class="language-prettyprint lang-bash">sudo chown -R $USER:$USER /var/www/test.com/html  
+</code></pre>
 
 <p>The permissions of our web roots should be correct already if you have not modified your <code>umask</code> value, but we can make sure by typing:</p>
 
-<p>sudo chmod -R 755 /var/www</p>
+<pre><code class="language-prettyprint lang-bash">sudo chmod -R 755 /var/www  
+</code></pre>
 
 <p>Our directory structure is now configured and we can move on.</p>
 
@@ -231,11 +233,14 @@ var profile_resume ='Software Engineer';
 
 <p>Create an <code>index.html</code> file in your domain:</p>
 
-<p>vim /var/www/test<span class="highlight">.com</span>/html/index.html</p>
+<pre><code class="language-prettyprint lang-bash">vim /var/www/test.com/html/index.html  
+</code></pre>
 
 <p>Inside the file, we’ll create a really basic file that indicates what site we are currently accessing. It will look like this:</p>
 
-<p><title>Welcome to Test<span class="highlight">.com</span>!</title>   <h1>Success! The test<span class="highlight">.com</span> server block is working</h1>  </p>
+<pre><code class="language-prettyprint lang-bash">  &lt;title&gt;Welcome to Test.com!&lt;/title&gt;   
+  &lt;h1&gt;Success! The test.com server block is working&lt;/h1&gt;  
+</code></pre>
 
 <p>Save and close the file when you are finished. Now, you have a test page.</p>
 
@@ -245,31 +250,56 @@ var profile_resume ='Software Engineer';
 
 <p>As mentioned above, we will create our server block config file by copying over the default file:</p>
 
-<p>sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/test<span class="highlight">.com</span></p>
+<pre><code class="language-prettyprint lang-bash">cd /etc/nginx/sites-available  
+sudo cp default test.com  
+</code></pre>
 
 <p>Now, open the new file you created in your text editor with root privileges:</p>
 
-<p>sudo vim /etc/nginx/sites-available/test.com</p>
+<pre><code class="language-prettyprint lang-bash">sudo vim /etc/nginx/sites-available/test.com  
+</code></pre>
 
 <p>Ignoring the commented lines, the file will look similar to this:</p>
 
-<p>server { listen 80 default<em>server; listen [::]:80 default</em>server ipv6only=on; root /usr/share/nginx/html; index index.html index.htm; server<em>name localhost; location / { try</em>files $uri $uri/ =404; } }</p>
+<pre><code class="language-prettyprint lang-bash">server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /usr/share/nginx/html; 
+    index index.html index.htm; 
+    server_name localhost; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+</code></pre>
 
 <p>We are eventually going to disable the default server block configuration, so we can place the <code>default_server</code> option in either this server block or in the one for our other site. I’m going to leave the <code>default_server</code> option enabled in this server block, but you can choose whichever is best for your situation.</p>
 
 <p>The next thing we’re going to have to adjust is the document root, specified by the <code>root</code> directive. Point it to the site’s document root that you created:</p>
 
-<p>root /var/www/test<span class="highlight">.com</span>/html;</p>
+<pre><code class="language-prettyprint lang-bash">root /var/www/test.com/html;  
+</code></pre>
 
 <p><strong>Note</strong>: Each Nginx statement <em>must</em> end with a semi-colon (;), so check each of your lines if you are running into problems.</p>
 
 <p>Next, we want to modify the <code>server_name</code> to match requests for our first domain. We can additionally add any aliases that we want to match. We will add a <code>www.test.com</code> alias to demonstrate:</p>
 
-<p>server_name test<span class="highlight">.com</span> www.test<span class="highlight">.com</span>;</p>
+<pre><code class="language-prettyprint lang-bash">server_name test.com www.test.com;  
+</code></pre>
 
 <p>When you are finished, your file will look something like this:</p>
 
-<p>server { listen 80 default<em>server; listen [::]:80 default</em>server ipv6only=on; root /var/www/test<span class="highlight">.com</span>/html; index index.html index.htm; server<em>name test<span class="highlight">.com</span> www.test<span class="highlight">.com</span>; location / { try</em>files $uri $uri/ =404; } }</p>
+<pre><code class="language-prettyprint lang-bash">server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /var/www/test.com/html; 
+    index index.html index.htm; 
+    server_name test.com www.test.com; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+</code></pre>
 
 <p>That is all we need for a basic configuration. Save and close the file to exit.</p>
 
@@ -279,41 +309,46 @@ var profile_resume ='Software Engineer';
 
 <p>We can create these links by typing:</p>
 
-<p>sudo ln -s /etc/nginx/sites-available/<span class="highlight">test.com</span> /etc/nginx/sites-enabled/</p>
+<pre><code class="language-prettyprint lang-bash">sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/  
+</code></pre>
 
 <p>This file are now in the enabled directory. However, the default server block file we used as a template is also enabled currently and will conflict with our file that has the <code>default_server</code> parameter set.</p>
 
 <p>We can disable the default server block file by simply removing the symbolic link. It will still be available for reference in the <code>sites-available</code> directory, but it won’t be read by Nginx on startup:</p>
 
-<pre><code>sudo rm /etc/nginx/sites-enabled/default  
+<pre><code class="language-prettyprint lang-bash">sudo rm /etc/nginx/sites-enabled/default  
 </code></pre>
 
 <p>We also need to edit one setting really quickly in the default Nginx configuration file. Open it up by typing:</p>
 
-<pre><code>sudo vim /etc/nginx/nginx.conf  
+<pre><code class="language-prettyprint lang-bash">sudo vim /etc/nginx/nginx.conf  
 </code></pre>
 
 <p>We just need to uncomment one line. Find and remove the comment from this:</p>
 
-<pre><code>server_names_hash_bucket_size 64;  
+<pre><code class="language-prettyprint lang-bash">server_names_hash_bucket_size 64;  
 </code></pre>
 
 <p>Now, we are ready to restart Nginx to enable your changes. You can do that by typing:</p>
 
-<pre><code>sudo service nginx restart  
+<pre><code class="language-prettyprint lang-bash">sudo service nginx restart  
 </code></pre>
 
 <p>Nginx should now be serving your domain name.</p>
 
-<p><div>### Step five – Setup Local hosts file</p>
+<h3 id="stepfivesetuplocalhostsfile">Step five – Setup Local hosts file</h3>
 
 <p>You can edit hosts file by typing:</p>
 
-<p><code>sudo vim /etc/hosts</code></p>
+<pre><code class="language-prettyprint lang-bash">sudo vim /etc/hosts  
+</code></pre>
 
 <p>You need to add your domain local:</p>
 
-<p>127.0.0.1 localhost 127.0.0.1 guest-desktop 127.0.0.1 <span class="highlight">test.com</span></p>
+<pre><code class="language-prettyprint lang-bash">127.0.0.1 localhost  
+127.0.0.1 guest-desktop  
+127.0.0.1 test.com  
+</code></pre>
 
 <p>This will intercept any requests for <code>test.com</code> and send them to your server, which is what we want if we don’t actually own the domains that we are using.</p>
 
@@ -323,19 +358,16 @@ var profile_resume ='Software Engineer';
 
 <p>Now that you are all set up, you should test that your server blocks are functioning correctly. You can do that by visiting the domains in your web browser:</p>
 
-<p><a href="http://test">http://test</a><span class="highlight">.com</span></p>
+<pre><code class="language-prettyprint lang-bash">http://test.com  
+</code></pre>
 
-<p>You should see a page that looks like this:</p>
-
-<p><img src="https://assets.digitalocean.com/articles/nginx_server_block_1404/second_block.png" alt="Nginx second server block" /></p>
-
-<p></div> </p>
+<p>You should see a page with message "Success".</p>
     </div>
 
     <div class="post related">
-        <a rel="prev" id="prev-btn" class="btn small square" href="../how-to-install-linux-nginx-mysql-php-lemp-on-ubuntu-14-04/index.html">← How To Install Linux, Nginx, MySQL, PHP (LEMP) On Ubuntu 14.04</a>
+        <a rel="prev" id="prev-btn" class="btn small square" href="../how-to-install-linux-nginx-mysql-php-lemp-on-ubuntu-14-04/">← How To Install Linux, Nginx, MySQL, PHP (LEMP) On Ubuntu 14.04</a>
 
-        <a rel="next" id="next-btn" class="btn small square" href="../set-up-master-slave-replication-in-mysql/index.html">Set Up Master-Slave Replication in MySQL →</a>
+        <a rel="next" id="next-btn" class="btn small square" href="../set-up-master-slave-replication-in-mysql/">Set Up Master-Slave Replication in MySQL →</a>
     </div>
 
     <footer class="post comments">
@@ -356,15 +388,15 @@ var profile_resume ='Software Engineer';
 
       <footer>
   <span class="copyright">
-   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> &copy; 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
+   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> © 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
   </span>
 </footer>
     </section>
   </main>
 
-  <script src="../public/jquery.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/run_prettify.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/uno.js?v=40fb1f9047"></script>
+  <script src="../public/jquery.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/run_prettify.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/uno.js?v=0042b65baf"></script>
   <script>
   if (window.ga_id) {
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -377,4 +409,3 @@ var profile_resume ='Software Engineer';
   }
 </script>
 </body>
-</html>

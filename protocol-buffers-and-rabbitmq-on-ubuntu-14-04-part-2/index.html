@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2</title>
 
@@ -35,28 +34,28 @@
 <meta name="msapplication-config" content="/assets/img/browserconfig.xml?v=wAAv6Wqe6l">
 <meta name="theme-color" content="#e74c3c">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=40fb1f9047" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=0042b65baf">
 
-  <link rel="canonical" href="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/" />
+  <link rel="canonical" href="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">
     
-    <meta property="og:site_name" content="CuongBN - Just Do It" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2" />
-    <meta property="og:description" content="This article is the second post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ In the previous article, we have installed Protocol buffer, define .proto file and..." />
-    <meta property="og:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/" />
-    <meta property="article:published_time" content="2015-08-26T14:42:09.000Z" />
-    <meta property="article:modified_time" content="2015-08-26T14:42:09.000Z" />
-    <meta property="article:tag" content="consumer" />
-    <meta property="article:tag" content="git" />
-    <meta property="article:tag" content="Linux" />
-    <meta property="article:tag" content="producer" />
-    <meta property="article:tag" content="protocol buffer" />
-    <meta property="article:tag" content="rabbitmq" />
+    <meta property="og:site_name" content="CuongBN - Just Do It">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2">
+    <meta property="og:description" content="This article is the second post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ In the previous article, we have installed Protocol buffer, define .proto file and...">
+    <meta property="og:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">
+    <meta property="article:published_time" content="2015-08-26T14:42:09.000Z">
+    <meta property="article:modified_time" content="2015-08-30T14:32:56.877Z">
+    <meta property="article:tag" content="consumer">
+    <meta property="article:tag" content="git">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="producer">
+    <meta property="article:tag" content="protocol buffer">
+    <meta property="article:tag" content="rabbitmq">
     
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2" />
-    <meta name="twitter:description" content="This article is the second post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ In the previous article, we have installed Protocol buffer, define .proto file and..." />
-    <meta name="twitter:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2">
+    <meta name="twitter:description" content="This article is the second post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ In the previous article, we have installed Protocol buffer, define .proto file and...">
+    <meta name="twitter:url" content="http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">
     
     <script type="application/ld+json">
 {
@@ -74,14 +73,14 @@
     "headline": "Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2",
     "url": "http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/",
     "datePublished": "2015-08-26T14:42:09.000Z",
-    "dateModified": "2015-08-26T14:42:09.000Z",
+    "dateModified": "2015-08-30T14:32:56.877Z",
     "keywords": "consumer, git, Linux, producer, protocol buffer, rabbitmq",
     "description": "This article is the second post in series: Introduce Protocol buffer and install protocol buffer compiler Wrire Producer and Consumer to work with protocol buffer and RabbitMQ In the previous article, we have installed Protocol buffer, define .proto file and..."
 }
     </script>
 
-    <meta name="generator" content="Ghost 0.6" />
-    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/" />
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/">
     <script>
 var profile_title = 'Cuong Ba Ngoc';
 var profile_resume ='Software Engineer';
@@ -91,7 +90,7 @@ var profile_resume ='Software Engineer';
 <body class="post-template tag-consumer tag-git-2 tag-linux tag-producer tag-protocol-buffer tag-rabbitmq">
 
   <section id="menu-button" class="expanded">
-    <a><i class="icon icon-list"></i></a>
+    <a href="index.html"><i class="icon icon-list"></i></a>
   </section>
 
   <aside class="cover">
@@ -99,22 +98,22 @@ var profile_resume ='Software Engineer';
   <div class="cover container">
     <div class="profile">
       <a id="avatar-link" title="link to homepage for CuongBN - Just Do It" href="http://cuongbangoc.github.io/#open">
-        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out" />
+        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out">
         <h1 id="profile-title">CuongBN - Just Do It</h1>
         <h3 id="profile-resume"></h3>
       </a>
 
-      <hr class="divider long" />
-      <p>Software Engineer, I&#x27;m a man passionate about programming languages, new technologies and open-sources...</p>
-      <hr class="divider short" />
+      <hr class="divider long">
+      <p>Software Engineer, I'm a man passionate about programming languages, new technologies and open-sources...</p>
+      <hr class="divider short">
       <div class="navigation">
         <div class="profile contact">
           <nav class="navigation left">
   <ul class="links">
     <li class="links item">
       <a href="http://cuongbangoc.github.io/#open" class="link-item" title="CuongBN - Just Do It blog" id="blog-button">Blog</a>
-        <a href="../index.html" class="link-item" id="-button">Home</a>
-        <a href="../about/index.html" class="link-item" id="-button">About</a>
+        <a href="../" class="link-item" id="-button">Home</a>
+        <a href="../about/" class="link-item" id="-button">About</a>
     </li>
   </ul>
 </nav>
@@ -133,7 +132,7 @@ var profile_resume ='Software Engineer';
   <!-- Linkedin -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="http://linkedin.com/in/cuongbangoc" title="CuongBaNgoc on LinkedIn">
-      <i class='icon icon-social-linkedin'></i>
+      <i class="icon icon-social-linkedin"></i>
       <span class="label">Linkedin</span>
     </a>
   </li>
@@ -141,7 +140,7 @@ var profile_resume ='Software Engineer';
   <!-- Github -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="https://github.com/cuongbangoc" title="CuongBaNgoc on Github">
-      <i class='icon icon-social-github'></i>
+      <i class="icon icon-social-github"></i>
       <span class="label">Github</span>
     </a>
   </li>
@@ -149,15 +148,15 @@ var profile_resume ='Software Engineer';
   <!-- Facebook -->
     <li class="social item hvr-grow-rotate">
       <a target="blank" href="http://facebook.com/ngoccuongkaka" title="CuongBaNgoc on Facebook">
-        <i class='icon icon-social-facebook'></i>
+        <i class="icon icon-social-facebook"></i>
         <span class="label">Facebook</span>
       </a>
     </li>
 
   <!-- RSS -->
   <li class="social item hvr-grow-rotate">
-    <a href="../rss/index.html" title="Subscribe to RSS">
-      <i class='icon icon-rss'></i>
+    <a href="../rss/index.rss" title="Subscribe to RSS">
+      <i class="icon icon-rss"></i>
       <span class="label">RSS</span>
     </a>
   </li>
@@ -165,9 +164,9 @@ var profile_resume ='Software Engineer';
   </ul>
 </nav>
           <section class="icon icon-search" id="search-container">
-  <hr class="divider short" />
+  <hr class="divider short">
   <form id="search-form">
-    <input type="text", name="search", placeholder="git, css, javascript,..." id="search-field" />
+    <input type="text" name="search" placeholder="git, css, javascript,..." id="search-field">
   </form>
 </section>
         </div>
@@ -185,13 +184,13 @@ var profile_resume ='Software Engineer';
     <header>
       <div class="post meta">
         <time datetime="26 Aug 2015">26 Aug 2015</time>
-        <span class="post tags">in <a href="../tag/consumer/index.html">consumer</a> <a href="../tag/git-2/index.html">git</a> <a href="../tag/linux/index.html">Linux</a> <a href="../tag/producer/index.html">producer</a> <a href="../tag/protocol-buffer/index.html">protocol buffer</a> <a href="../tag/rabbitmq/index.html">rabbitmq</a></span>
+        <span class="post tags">in <a href="../tag/consumer/">consumer</a> <a href="../tag/git-2/">git</a> <a href="../tag/linux/">Linux</a> <a href="../tag/producer/">producer</a> <a href="../tag/protocol-buffer/">protocol buffer</a> <a href="../tag/rabbitmq/">rabbitmq</a></span>
 
 
         <span class="post reading-time"> ~ <span></span> read.</span>
       </div>
 
-      <a alt="Tweet 'Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2'" href="https://twitter.com/intent/tweet?text=Protocol%20Buffers%20and%20RabbitMQ%20on%20Ubuntu%2014.04%20Part%202 %20%C2%BB%20&amp;url=http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/" >
+      <a alt="Tweet 'Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2'" href="https://twitter.com/intent/tweet?text=Protocol%20Buffers%20and%20RabbitMQ%20on%20Ubuntu%2014.04%20Part%202%20%20%C2%BB%20&amp;url=http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">
         
         <h1 class="icon-reverse icon-social-twitter-post" id="post-title">Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2</h1>
       </a>
@@ -201,8 +200,8 @@ var profile_resume ='Software Engineer';
       <h5 id="thisarticleisthesecondpostinseries">This article is the second post in series:</h5>
 
 <ul>
-<li><a href="https://cuongba.wordpress.com/2015/08/26/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">Introduce Protocol buffer and install protocol buffer compiler</a></li>
-<li><a href="https://cuongba.wordpress.com/2015/08/26/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">Wrire Producer and Consumer to work with protocol buffer and RabbitMQ</a></li>
+<li><a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">Introduce Protocol buffer and install protocol buffer compiler</a></li>
+<li><a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/">Wrire Producer and Consumer to work with protocol buffer and RabbitMQ</a></li>
 </ul>
 
 <p>In the previous article, we have installed Protocol buffer, define <strong>.proto</strong> file and use protocol buffer compiler to compile <strong>.protocol</strong> file. In this article, we will continue <strong>step 4</strong> and <strong>step 5</strong>, write producer and consumer in RabbitMQ to encode, decode and transfer protocol data. You can read about Step 1, step 2 and step 3 in the previous post.</p>
@@ -217,213 +216,193 @@ var profile_resume ='Software Engineer';
 <li><strong>Step 5</strong>: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server</li>
 </ul>
 
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsstep4writeproducerusethepythonprotocolbufferapitoencodeandsendmessagestorabbitmqserverspanspan"><span class="short_text" id="result_box" lang="en"><span class="hps">Step 4: Write Producer use the Python protocol buffer API to encode and send messages to RabbitMQ server</span></span></h3>
+<h3 id="step4writeproducerusethepythonprotocolbufferapitoencodeandsendmessagestorabbitmqserver">Step 4: Write Producer use the Python protocol buffer API to encode and send messages to RabbitMQ server</h3>
 
 <ul>
 <li>At the first, we need to setup environment for this example. I will setup environment for Python 2.7 and use <strong>Pika</strong> library to work with RabbitMQ.</li>
 </ul>
 
-<p>You will need to know about <strong>virtualenv</strong> and use <strong>pip</strong>. Please read about it in the post : <a href="https://cuongba.wordpress.com/2015/04/21/set-up-virtual-environments-in-python-on-ubuntu-14-04/">Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04</a>.</p>
+<p>You will need to know about <strong>virtualenv</strong> and use <strong>pip</strong>. Please read about it in the post : <a href="https://cuongbangoc.github.io/set-up-virtual-environments-in-python-on-ubuntu-14-04/">Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04</a>.</p>
 
-<p>[sourcecode language=”bash” wraplines=”false” collapse=”false”] <br />
- virtualenv -p /usr/bin/python2.7 env <br />
- source env/bin/activate <br />
- pip install pika</p>
-
-<p>[/sourcecode]</p>
+<pre><code class="language-prettyprint lang-bash  ">virtualenv -p /usr/bin/python2.7 env  
+source env/bin/activate  
+pip install pika  
+</code></pre>
 
 <ul>
-<li>Next, we need to install <strong>protocol_buffer<em>*</strong>library</em>* for Python to work with protocol buffer</li>
+<li>Next, we need to install <strong>protocol_buffer library</strong> for Python to work with protocol buffer</li>
 </ul>
 
-<p>You can download protocol buffer code, Extract and copy <em>*python *</em>directory to your project <br />
-   <br />
- [sourcecode language=”bash” wraplines=”false” collapse=”false”] <br />
- cd .. <br />
- git clone <a href="https://github.com/google/protobuf.git">https://github.com/google/protobuf.git</a> <br />
- cd protocol<em>buffers</em>python <br />
- cp ../protobuf/python . <br />
- cd python <br />
- python setup.py install <br />
- [/sourcecode] <br />
-  </p>
+<p>You can download protocol buffer code, Extract and copy <strong>python</strong> directory to your project  </p>
+
+<pre><code class="language-prettyprint lang-bash  ">cd ..  
+git clone https://github.com/google/protobuf.git  
+cd protocol_buffers_python  
+cp ../protobuf/python .  
+cd python  
+python setup.py install  
+</code></pre>
 
 <ul>
-<li><p>Continue, I will have a <strong><em>config.py</em></strong> file, which store RabbitMQ server information.</p>
-
-<p>  <br />
-[sourcecode language=”bash” wraplines=”false” collapse=”false”] <br />
-RABBIT<em>HOST= ‘localhost’ <br />
-QUEUE</em>TOPIC = ‘topic_name’ <br />
-[/sourcecode] <br />
- </p></li>
-<li><p>Next, I will write <strong>*rabbit.py *</strong>to work with RabbitMQ.</p>
-
-<p>  <br />
-[sourcecode language=”python” wraplines=”false” collapse=”false”] <br />
-import pika <br />
-import config as cfg</p></li>
+<li>Continue, I will have a <strong><em>config.py</em></strong> file, which store RabbitMQ server information.</li>
 </ul>
 
-<p>class Rabbit(): <br />
-     def <strong>init</strong>(self): <br />
-         self.conn = None <br />
-         self.channel = None</p>
-
-<p>    def connect(self): <br />
-          self.conn = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT<em>HOST)) <br />
-          self.channel = self.conn.channel() <br />
-   <br />
-     def close(self): <br />
-         self.conn.close() <br />
-   <br />
-     def send(self, topic, data): <br />
-         # Open connection <br />
-         self.connect() <br />
-         # Declare queue to send data <br />
-         self.channel.queue</em>declare(topic) <br />
-         # Send data <br />
-         self.channel.basic<em>publish(exchange=”, routing</em>key=topic, body=data) <br />
-         print(" [x] Sent data to RabbitMQ") <br />
-   <br />
-         # Close connection <br />
-         self.close() <br />
-   <br />
-     def receive(self, topic, callback): <br />
-         # Open connection <br />
-         self.connect() <br />
-         # Declare queue to send data <br />
-         self.channel.queue<em>declare(topic) <br />
-         print(‘ [*] Waiting for messages. To exit press CTRL+C’) <br />
-   <br />
-         # Listen and receive data from queue <br />
-         self.channel.basic</em>consume(callback, queue=topic, no<em>ack=True) <br />
-         self.channel.start</em>consuming()</p>
-
-<p>[/sourcecode] <br />
-  </p>
+<pre><code class="language-prettyprint lang-python  ">RABBIT_HOST= ‘localhost’  
+QUEUE_TOPIC = ‘topic_name’  
+</code></pre>
 
 <ul>
-<li><p>After that, we will start to write <strong><em>producer.py</em><em>*</em></strong>.<em>*</em></p>
-
-<p>  <br />
-[sourcecode language=”python” wraplines=”false” collapse=”false”] <br />
-import users_pb2 <br />
-import sys <br />
-import config as cfg <br />
-import rabbit</p></li>
+<li>Next, I will write <strong>*rabbit.py *</strong>to work with RabbitMQ.</li>
 </ul>
 
-<p>r = rabbit.Rabbit() <br />
- list<em>users = users</em>pb2.ListUsers()</p>
+<pre><code class="language-prettyprint lang-bash  ">import pika  
+import config as cfg
 
-<p>def input(user): <br />
-     user.id = int(raw<em>input("Enter User ID: ")) <br />
-     user.name = raw</em>input("Enter name: ") <br />
-     email = raw<em>input("Enter email address (blank for none): ") <br />
-     if email != ”: <br />
-         user.email = email <br />
-   <br />
- def send</em>rabbit(data): <br />
-     # Connect to RabbitMQ and create channel <br />
-     connection = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT<em>HOST)) <br />
-     channel = connection.channel() <br />
-     # Declare queue to send data <br />
-     channel.queue</em>declare(queue=cfg.QUEUE<em>TOPIC) <br />
-     Send data <br />
-     channel.basic</em>publish(exchange=”, routing<em>key=cfg.QUEUE</em>TOPIC, body=data) <br />
-     print(" [x] Sent data to RabbitMQ") <br />
-     connection.close()</p>
+class Rabbit():  
+     def __init__(self):  
+         self.conn = None  
+         self.channel = None
 
-<p>try: <br />
-     # Add list users <br />
-     input(list<em>users.user.add()) <br />
-     # encode data <br />
-     data</em>encode = list<em>users.SerializeToString() <br />
-     # Send to rabbit <br />
-     r.send(cfg.QUEUE</em>TOPIC, data_encode) <br />
-   <br />
- except Exception as e: <br />
-     print("Send data is error") <br />
-     print(e)</p>
-
-<p>[/sourcecode] <br />
-  </p>
-
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpsstep5writeconsumerusethepythonprotocolbufferapitoreceiveanddecodemessagesfromrabbitmqserverspanspan"><span class="short_text" id="result_box" lang="en"><span class="hps">Step 5: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server</span></span></h3>
-
-<p>And the finally step, we will write a <strong>consumer <em>*to receive data and decode it. The content of *</strong>consumer.py:</em>**</p>
-
-<p>  <br />
- [sourcecode language=”python” wraplines=”false” collapse=”false”] <br />
- import users_pb2 <br />
- import sys <br />
- import config as cfg</p>
-
-<p>import rabbit</p>
-
-<p>r = rabbit.Rabbit() <br />
- list<em>users = users</em>pb2.ListUsers()</p>
-
-<p>def show(list<em>users): <br />
-     for user in list</em>users.user: <br />
-         print("User ID: {}".format(user.id)) <br />
-         print("User Name: {}".format(user.name)) <br />
-         if user.HasField(’email’): <br />
-             print("Email: {}".format(user.email))</p>
-
-<p>def callback_rabbit(ch, method, properties, body): <br />
-     #print("Method: {}".format(method)) <br />
-     #print("Properties: {}".format(properties))</p>
-
-<p>    print("n=============================================<mark>=n") <br />
-     list<em>users.ParseFromString(body) <br />
-     show(list</em>users) <br />
-     print("n</mark>==============================================n")</p>
-
-<p>try: <br />
-     # Receive Data from rabbit <br />
-     r.receive(cfg.QUEUE<em>TOPIC, callback</em>rabbit) <br />
- except Exception as e: <br />
-     print("receive data is error") <br />
-     print(e)</p>
-
-<p>[/sourcecode] <br />
-  </p>
-
-<h3 id="spanclassshort_textidresult_boxlangenspanclasshpstestproducerandconsumer"><span class="short_text" id="result_box" lang="en"><span class="hps">Test Producer and Consumer</h3>
-
-<p></span></span></p>
+     def connect(self):  
+         self.conn = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))  
+         self.channel = self.conn.channel()  
+    
+     def close(self):  
+         self.conn.close()  
+    
+     def send(self, topic, data):  
+         # Open connection  
+         self.connect()  
+         # Declare queue to send data  
+         self.channel.queue_declare(topic)  
+         # Send data  
+         self.channel.basic_publish(exchange=”, routing_key=topic, body=data)  
+         print(" [x] Sent data to RabbitMQ")  
+    
+         # Close connection  
+         self.close()  
+    
+     def receive(self, topic, callback):  
+         # Open connection  
+         self.connect()  
+         # Declare queue to send data  
+         self.channel.queue_declare(topic)  
+         print(‘ [*] Waiting for messages. To exit press CTRL+C’)  
+    
+         # Listen and receive data from queue  
+         self.channel.basic_consume(callback, queue=topic, no_ack=True)  
+         self.channel.start_consuming()
+</code></pre>
 
 <ul>
-<li><p>The first, you run producer:</p>
-
-<p>  <br />
-[sourcecode language=”bash” wraplines=”false” collapse=”false”] <br />
-(env)ngoccuong@ubuntu2:~/working/source<em>code/protocol</em>buffer_python$ python producer.py</p></li>
+<li>After that, we will start to write <strong><em>producer.py</em><em>*</em></strong>.<em>*</em>
+   </li>
 </ul>
 
-<p>Enter User ID:</pre> <br />
- And enter your value</p>
+<pre><code class="language-prettyprint lang-python  ">import users_pb2  
+import sys  
+import config as cfg  
+import rabbit
 
-<p>[/sourcecode] <br />
-  </p>
+r = rabbit.Rabbit()  
+list_users = users_pb2.ListUsers()
+
+def input(user):  
+    user.id = int(raw_input("Enter User ID: "))  
+    user.name = raw_input("Enter name: ")  
+    email = raw_input("Enter email address (blank for none): ")  
+    if email != ”:  
+        user.email = email  
+    
+def send_rabbit(data):  
+    # Connect to RabbitMQ and create channel  
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))
+    channel = connection.channel()  
+    # Declare queue to send data  
+    channel.queue_declare(queue=cfg.QUEUE_TOPIC)  
+    # Send data  
+    channel.basic_publish(exchange=”, routing_key=cfg.QUEUE_TOPIC, body=data)  
+    print(" [x] Sent data to RabbitMQ")  
+    connection.close()
+
+try:  
+    # Add list users  
+    input(list_users.user.add())  
+    # encode data  
+    data_encode = list_users.SerializeToString()  
+    # Send to rabbit  
+    r.send(cfg.QUEUE_TOPIC, data_encode)  
+    
+except Exception as e:  
+    print("Send data is error")  
+    print(e)
+</code></pre>
+
+<h3 id="step5writeconsumerusethepythonprotocolbufferapitoreceiveanddecodemessagesfromrabbitmqserver">Step 5: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server</h3>
+
+<p>And the finally step, we will write a <strong>consumer</strong> to receive data and decode it. The content of <strong><em>consumer.py:</em></strong></p>
+
+<pre><code class="language-prettyprint lang-python  ">import users_pb2  
+import sys  
+import config as cfg
+
+import rabbit
+
+r = rabbit.Rabbit()  
+list_users = users_pb2.ListUsers()
+
+def show(list_users):  
+    for user in list_users.user:  
+        print("User ID: {}".format(user.id))  
+        print("User Name: {}".format(user.name))  
+        if user.HasField(’email’):  
+            print("Email: {}".format(user.email))
+
+def callback_rabbit(ch, method, properties, body):  
+    #print("Method: {}".format(method))  
+    #print("Properties: {}".format(properties))
+
+    print("n================================================n")  
+    list_users.ParseFromString(body)  
+    show(list_users)  
+
+    print("n================================================n")
+
+try:  
+    # Receive Data from rabbit  
+    r.receive(cfg.QUEUE_TOPIC, callback_rabbit)  
+except Exception as e:  
+    print("receive data is error")  
+    print(e)
+</code></pre>
+
+<h3 id="testproducerandconsumer">Test Producer and Consumer</h3>
 
 <ul>
-<li><p>After that, you run consumer, if you see as below, it is work properly :</p>
-
-<p>  <br />
-[code language=”bash” wraplines=”false” collapse=”false”] <br />
-(env)ngoccuong@ubuntu2:~/working/source<em>code/protocol</em>buffer_python$ python consumer.py <br />
- [*] Waiting for messages. To exit press CTRL+C <br />
-User ID: 2 <br />
-User Name: cuong ba ngoc <br />
-Email: cuongbangoc@gmail.com</pre></p></li>
+<li>The first, you run producer:</li>
 </ul>
 
-<p>[/code] <br />
-   <br />
- So, we have completed install RabbitMQ as queue, send and receive <strong>Protocol Buffer</strong> data with it. Thank you for reading.</p>
+<pre><code class="language-prettyprint lang-bash  ">(env)ngoccuong@ubuntu2:~/working/source_code/protocol_buffer_python$ python producer.py
+
+Enter User ID:  
+</code></pre>
+
+<p>And enter your value  </p>
+
+<ul>
+<li>After that, you run consumer, if you see as below, it is work properly :</li>
+</ul>
+
+<pre><code class="language-prettyprint lang-bash  ">(env)ngoccuong@ubuntu2:~/working/source_code/protocol_buffer_python$ python consumer.py  
+
+[*] Waiting for messages. To exit press CTRL+C  
+User ID: 2  
+User Name: cuong ba ngoc  
+Email: cuongbangoc@gmail.com  
+</code></pre>
+
+<p>  <br>
+So, we have completed install RabbitMQ as queue, send and receive <strong>Protocol Buffer</strong> data with it. Thank you for reading.</p>
 
 <p>You can see full source code on:</p>
 
@@ -431,7 +410,7 @@ Email: cuongbangoc@gmail.com</pre></p></li>
     </div>
 
     <div class="post related">
-        <a rel="prev" id="prev-btn" class="btn small square" href="../protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/index.html">← Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1</a>
+        <a rel="prev" id="prev-btn" class="btn small square" href="../protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/">← Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1</a>
 
     </div>
 
@@ -453,15 +432,15 @@ Email: cuongbangoc@gmail.com</pre></p></li>
 
       <footer>
   <span class="copyright">
-   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> &copy; 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
+   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> © 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
   </span>
 </footer>
     </section>
   </main>
 
-  <script src="../public/jquery.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/run_prettify.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/uno.js?v=40fb1f9047"></script>
+  <script src="../public/jquery.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/run_prettify.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/uno.js?v=0042b65baf"></script>
   <script>
   if (window.ga_id) {
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -474,4 +453,3 @@ Email: cuongbangoc@gmail.com</pre></p></li>
   }
 </script>
 </body>
-</html>

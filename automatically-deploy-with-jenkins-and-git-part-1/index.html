@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>Automatically Deploy with Jenkins and Git (Part 1)</title>
 
@@ -35,27 +34,27 @@
 <meta name="msapplication-config" content="/assets/img/browserconfig.xml?v=wAAv6Wqe6l">
 <meta name="theme-color" content="#e74c3c">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=40fb1f9047" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=0042b65baf">
 
-  <link rel="canonical" href="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/" />
+  <link rel="canonical" href="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/">
     
-    <meta property="og:site_name" content="CuongBN - Just Do It" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Automatically Deploy with Jenkins and Git (Part 1)" />
-    <meta property="og:description" content="Introduction Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or..." />
-    <meta property="og:url" content="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/" />
-    <meta property="article:published_time" content="2015-05-18T17:45:32.000Z" />
-    <meta property="article:modified_time" content="2015-08-30T12:40:27.000Z" />
-    <meta property="article:tag" content="deploy" />
-    <meta property="article:tag" content="git" />
-    <meta property="article:tag" content="jenkins" />
-    <meta property="article:tag" content="Linux" />
-    <meta property="article:tag" content="tool" />
+    <meta property="og:site_name" content="CuongBN - Just Do It">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Automatically Deploy with Jenkins and Git (Part 1)">
+    <meta property="og:description" content="Introduction Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or...">
+    <meta property="og:url" content="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/">
+    <meta property="article:published_time" content="2015-05-18T17:45:32.000Z">
+    <meta property="article:modified_time" content="2015-08-30T13:06:02.809Z">
+    <meta property="article:tag" content="deploy">
+    <meta property="article:tag" content="git">
+    <meta property="article:tag" content="jenkins">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="tool">
     
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Automatically Deploy with Jenkins and Git (Part 1)" />
-    <meta name="twitter:description" content="Introduction Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or..." />
-    <meta name="twitter:url" content="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Automatically Deploy with Jenkins and Git (Part 1)">
+    <meta name="twitter:description" content="Introduction Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or...">
+    <meta name="twitter:url" content="http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/">
     
     <script type="application/ld+json">
 {
@@ -73,14 +72,14 @@
     "headline": "Automatically Deploy with Jenkins and Git (Part 1)",
     "url": "http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/",
     "datePublished": "2015-05-18T17:45:32.000Z",
-    "dateModified": "2015-08-30T12:40:27.000Z",
+    "dateModified": "2015-08-30T13:06:02.809Z",
     "keywords": "deploy, git, jenkins, Linux, tool",
     "description": "Introduction Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or..."
 }
     </script>
 
-    <meta name="generator" content="Ghost 0.6" />
-    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/" />
+    <meta name="generator" content="Ghost 0.6">
+    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/">
     <script>
 var profile_title = 'Cuong Ba Ngoc';
 var profile_resume ='Software Engineer';
@@ -90,7 +89,7 @@ var profile_resume ='Software Engineer';
 <body class="post-template tag-deploy tag-git-2 tag-jenkins tag-linux tag-tool">
 
   <section id="menu-button" class="expanded">
-    <a><i class="icon icon-list"></i></a>
+    <a href="index.html"><i class="icon icon-list"></i></a>
   </section>
 
   <aside class="cover">
@@ -98,22 +97,22 @@ var profile_resume ='Software Engineer';
   <div class="cover container">
     <div class="profile">
       <a id="avatar-link" title="link to homepage for CuongBN - Just Do It" href="http://cuongbangoc.github.io/#open">
-        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out" />
+        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out">
         <h1 id="profile-title">CuongBN - Just Do It</h1>
         <h3 id="profile-resume"></h3>
       </a>
 
-      <hr class="divider long" />
-      <p>Software Engineer, I&#x27;m a man passionate about programming languages, new technologies and open-sources...</p>
-      <hr class="divider short" />
+      <hr class="divider long">
+      <p>Software Engineer, I'm a man passionate about programming languages, new technologies and open-sources...</p>
+      <hr class="divider short">
       <div class="navigation">
         <div class="profile contact">
           <nav class="navigation left">
   <ul class="links">
     <li class="links item">
       <a href="http://cuongbangoc.github.io/#open" class="link-item" title="CuongBN - Just Do It blog" id="blog-button">Blog</a>
-        <a href="../index.html" class="link-item" id="-button">Home</a>
-        <a href="../about/index.html" class="link-item" id="-button">About</a>
+        <a href="../" class="link-item" id="-button">Home</a>
+        <a href="../about/" class="link-item" id="-button">About</a>
     </li>
   </ul>
 </nav>
@@ -132,7 +131,7 @@ var profile_resume ='Software Engineer';
   <!-- Linkedin -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="http://linkedin.com/in/cuongbangoc" title="CuongBaNgoc on LinkedIn">
-      <i class='icon icon-social-linkedin'></i>
+      <i class="icon icon-social-linkedin"></i>
       <span class="label">Linkedin</span>
     </a>
   </li>
@@ -140,7 +139,7 @@ var profile_resume ='Software Engineer';
   <!-- Github -->
   <li class="social item hvr-grow-rotate">
     <a target="blank" href="https://github.com/cuongbangoc" title="CuongBaNgoc on Github">
-      <i class='icon icon-social-github'></i>
+      <i class="icon icon-social-github"></i>
       <span class="label">Github</span>
     </a>
   </li>
@@ -148,15 +147,15 @@ var profile_resume ='Software Engineer';
   <!-- Facebook -->
     <li class="social item hvr-grow-rotate">
       <a target="blank" href="http://facebook.com/ngoccuongkaka" title="CuongBaNgoc on Facebook">
-        <i class='icon icon-social-facebook'></i>
+        <i class="icon icon-social-facebook"></i>
         <span class="label">Facebook</span>
       </a>
     </li>
 
   <!-- RSS -->
   <li class="social item hvr-grow-rotate">
-    <a href="../rss/index.html" title="Subscribe to RSS">
-      <i class='icon icon-rss'></i>
+    <a href="../rss/index.rss" title="Subscribe to RSS">
+      <i class="icon icon-rss"></i>
       <span class="label">RSS</span>
     </a>
   </li>
@@ -164,9 +163,9 @@ var profile_resume ='Software Engineer';
   </ul>
 </nav>
           <section class="icon icon-search" id="search-container">
-  <hr class="divider short" />
+  <hr class="divider short">
   <form id="search-form">
-    <input type="text", name="search", placeholder="git, css, javascript,..." id="search-field" />
+    <input type="text" name="search" placeholder="git, css, javascript,..." id="search-field">
   </form>
 </section>
         </div>
@@ -184,13 +183,13 @@ var profile_resume ='Software Engineer';
     <header>
       <div class="post meta">
         <time datetime="19 May 2015">19 May 2015</time>
-        <span class="post tags">in <a href="../tag/deploy/index.html">deploy</a> <a href="../tag/git-2/index.html">git</a> <a href="../tag/jenkins/index.html">jenkins</a> <a href="../tag/linux/index.html">Linux</a> <a href="../tag/tool/index.html">tool</a></span>
+        <span class="post tags">in <a href="../tag/deploy/">deploy</a> <a href="../tag/git-2/">git</a> <a href="../tag/jenkins/">jenkins</a> <a href="../tag/linux/">Linux</a> <a href="../tag/tool/">tool</a></span>
 
 
         <span class="post reading-time"> ~ <span></span> read.</span>
       </div>
 
-      <a alt="Tweet 'Automatically Deploy with Jenkins and Git (Part 1)'" href="https://twitter.com/intent/tweet?text=Automatically%20Deploy%20with%20Jenkins%20and%20Git%20(Part%201) %20%C2%BB%20&amp;url=http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/" >
+      <a alt="Tweet 'Automatically Deploy with Jenkins and Git (Part 1)'" href="https://twitter.com/intent/tweet?text=Automatically%20Deploy%20with%20Jenkins%20and%20Git%20(Part%201)%20%20%C2%BB%20&amp;url=http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/">
         
         <h1 class="icon-reverse icon-social-twitter-post" id="post-title">Automatically Deploy with Jenkins and Git (Part 1)</h1>
       </a>
@@ -205,45 +204,48 @@ var profile_resume ='Software Engineer';
 
 <p>This is the Debian package repository of Jenkins to automate installation and upgrade. To use this repository, first add the key to your system:</p>
 
-<p>wget -q -O - <a href="http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key">http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key</a> | sudo apt-key add -</p>
+<pre><code class="language-prettyprint lang-bash">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -  
+</code></pre>
 
 <p>The next step, add the following entry in your /etc/apt/sources.list</p>
 
-<p>deb <a href="http://pkg.jenkins-ci.org/debian">http://pkg.jenkins-ci.org/debian</a> binary/</p>
+<pre><code class="language-prettyprint lang-bash">deb http://pkg.jenkins-ci.org/debian binary/  
+</code></pre>
 
 <p>The final, update your package index and install Jenkins:</p>
 
-<p>sudo apt-get update sudo apt-get install jenkins</p>
+<pre><code class="language-prettyprint lang-bash">sudo apt-get update sudo apt-get install jenkins  
+</code></pre>
 
 <h3 id="configurejenkins">Configure Jenkins</h3>
 
 <p>Now that Jenkins have installed and running. You can go to <a href="http://yourserver.com:8080">http://yourserver.com:8080</a> to see. You will be welcomed by the default Jenkins screen.</p>
 
-<p><img src="https://assets.digitalocean.com/articles/jenkins/1.png" alt="" /></p>
+<p><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941389/wordpress_blog/1.png" alt=""></p>
 
 <p>Default, After install Jenkins then everyone can access it. We will need to re-configure security of Jenkins. The first, go to Manage Jenkins in the left menu. Then, click Setup Security on the page loaded.</p>
 
-<p><img src="https://assets.digitalocean.com/articles/jenkins/2.png" alt="" /></p>
+<p><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941514/wordpress_blog/2.png" alt=""></p>
 
 <p>The next, enable the security by checking “Enable security” checkbox. The next, in “Security Realm”, checking “Jenkins’ own user database”. If you want to other users can sign up then you can check “Allow users to sign up”.</p>
 
-<p><img src="https://assets.digitalocean.com/articles/jenkins/4.png" alt="" /></p>
+<p><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941569/wordpress_blog/4.png" alt=""></p>
 
 <p>The next, go to Authorization and checking “Matrix-based security”. And setup permission for Anonymous only view. You can also setup permission for other users if you want.</p>
 
-<p><a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png"><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png?w=300" alt="Permission in Jenkins 2" title="" /></a></p>
+<p><a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png"><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png?w=300" alt="Permission in Jenkins 2" title=""></a></p>
 
 <p>Click save button at the bottom of the page, after reload page, you will see a login form. Ignore it and go to <a href="http://yourserver:8080">http://yourserver:8080</a> again and you will see a sign up form:</p>
 
-<p><img src="https://assets.digitalocean.com/articles/jenkins/7.png" alt="" /></p>
+<p><img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941702/wordpress_blog/7.png" alt=""></p>
 
 <p>Sign up with the your username and password and you will be administrator of Jenkins install. In the next article, I will show how to create a job to deploy source code in Git server to Deployment Server.</p>
     </div>
 
     <div class="post related">
-        <a rel="prev" id="prev-btn" class="btn small square" href="../set-up-virtual-environments-in-python-on-ubuntu-14-04/index.html">← Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04</a>
+        <a rel="prev" id="prev-btn" class="btn small square" href="../set-up-virtual-environments-in-python-on-ubuntu-14-04/">← Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04</a>
 
-        <a rel="next" id="next-btn" class="btn small square" href="../automatically-deploy-with-jenkins-and-git-part-2/index.html">Automatically Deploy with Jenkins and Git (Part 2) →</a>
+        <a rel="next" id="next-btn" class="btn small square" href="../automatically-deploy-with-jenkins-and-git-part-2/">Automatically Deploy with Jenkins and Git (Part 2) →</a>
     </div>
 
     <footer class="post comments">
@@ -264,15 +266,15 @@ var profile_resume ='Software Engineer';
 
       <footer>
   <span class="copyright">
-   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> &copy; 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
+   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> © 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
   </span>
 </footer>
     </section>
   </main>
 
-  <script src="../public/jquery.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/run_prettify.js?v=40fb1f9047"></script>
-  <script type="text/javascript" src="../assets/js/uno.js?v=40fb1f9047"></script>
+  <script src="../public/jquery.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/run_prettify.js?v=0042b65baf"></script>
+  <script type="text/javascript" src="../assets/js/uno.js?v=0042b65baf"></script>
   <script>
   if (window.ga_id) {
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -285,4 +287,3 @@ var profile_resume ='Software Engineer';
   }
 </script>
 </body>
-</html>

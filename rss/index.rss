@@ -1,0 +1,1550 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>CuongBN - Just Do It</title><description>Software Engineer, I'm a man passionate about programming languages, new technologies and open-sources...</description><link>http://cuongbangoc.github.io/</link><generator>Ghost 0.6</generator><lastBuildDate>Sun, 30 Aug 2015 14:52:22 GMT</lastBuildDate><atom:link href="http://cuongbangoc.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 2</title><description>&lt;h5 id="thisarticleisthesecondpostinseries"&gt;This article is the second post in series:&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/"&gt;Introduce Protocol buffer and install protocol buffer compiler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/"&gt;Wrire Producer and Consumer to work with protocol buffer and RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the previous article, we have installed Protocol buffer, define &lt;strong&gt;.proto&lt;/strong&gt; file and use protocol buffer compiler to compile &lt;strong&gt;.protocol&lt;/strong&gt; file. In this&lt;/p&gt;</description><link>http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/</link><guid isPermaLink="false">ed36309b-87df-4724-9abd-9cd501c8583e</guid><category>consumer</category><category>git</category><category>Linux</category><category>producer</category><category>protocol buffer</category><category>rabbitmq</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Wed, 26 Aug 2015 14:42:09 GMT</pubDate><content:encoded>&lt;h5 id="thisarticleisthesecondpostinseries"&gt;This article is the second post in series:&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/"&gt;Introduce Protocol buffer and install protocol buffer compiler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/"&gt;Wrire Producer and Consumer to work with protocol buffer and RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the previous article, we have installed Protocol buffer, define &lt;strong&gt;.proto&lt;/strong&gt; file and use protocol buffer compiler to compile &lt;strong&gt;.protocol&lt;/strong&gt; file. In this article, we will continue &lt;strong&gt;step 4&lt;/strong&gt; and &lt;strong&gt;step 5&lt;/strong&gt;, write producer and consumer in RabbitMQ to encode, decode and transfer protocol data. You can read about Step 1, step 2 and step 3 in the previous post.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To use Protocol Buffers in my systems, I will:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Step 1&lt;/strong&gt;: Install Protocol buffer compiler on Ubuntu 14.04&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 2&lt;/strong&gt;: Define message structure formats in a &lt;code&gt;.proto&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 3&lt;/strong&gt;: Use the protocol buffer compiler&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 4&lt;/strong&gt;: Write Producer use the Python protocol buffer API to encode and send messages to RabbitMQ server&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 5&lt;/strong&gt;: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="step4writeproducerusethepythonprotocolbufferapitoencodeandsendmessagestorabbitmqserver"&gt;Step 4: Write Producer use the Python protocol buffer API to encode and send messages to RabbitMQ server&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;At the first, we need to setup environment for this example. I will setup environment for Python 2.7 and use &lt;strong&gt;Pika&lt;/strong&gt; library to work with RabbitMQ.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You will need to know about &lt;strong&gt;virtualenv&lt;/strong&gt; and use &lt;strong&gt;pip&lt;/strong&gt;. Please read about it in the post : &lt;a href="https://cuongbangoc.github.io/set-up-virtual-environments-in-python-on-ubuntu-14-04/"&gt;Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;virtualenv -p /usr/bin/python2.7 env  
+source env/bin/activate  
+pip install pika  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Next, we need to install &lt;strong&gt;protocol_buffer library&lt;/strong&gt; for Python to work with protocol buffer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can download protocol buffer code, Extract and copy &lt;strong&gt;python&lt;/strong&gt; directory to your project  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;cd ..  
+git clone https://github.com/google/protobuf.git  
+cd protocol_buffers_python  
+cp ../protobuf/python .  
+cd python  
+python setup.py install  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Continue, I will have a &lt;strong&gt;&lt;em&gt;config.py&lt;/em&gt;&lt;/strong&gt; file, which store RabbitMQ server information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python  "&gt;RABBIT_HOST= ‘localhost’  
+QUEUE_TOPIC = ‘topic_name’  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Next, I will write &lt;strong&gt;*rabbit.py *&lt;/strong&gt;to work with RabbitMQ.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;import pika  
+import config as cfg
+
+class Rabbit():  
+     def __init__(self):  
+         self.conn = None  
+         self.channel = None
+
+     def connect(self):  
+         self.conn = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))  
+         self.channel = self.conn.channel()  
+    
+     def close(self):  
+         self.conn.close()  
+    
+     def send(self, topic, data):  
+         # Open connection  
+         self.connect()  
+         # Declare queue to send data  
+         self.channel.queue_declare(topic)  
+         # Send data  
+         self.channel.basic_publish(exchange=”, routing_key=topic, body=data)  
+         print(" [x] Sent data to RabbitMQ")  
+    
+         # Close connection  
+         self.close()  
+    
+     def receive(self, topic, callback):  
+         # Open connection  
+         self.connect()  
+         # Declare queue to send data  
+         self.channel.queue_declare(topic)  
+         print(‘ [*] Waiting for messages. To exit press CTRL+C’)  
+    
+         # Listen and receive data from queue  
+         self.channel.basic_consume(callback, queue=topic, no_ack=True)  
+         self.channel.start_consuming()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;After that, we will start to write &lt;strong&gt;&lt;em&gt;producer.py&lt;/em&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;.&lt;em&gt;*&lt;/em&gt;
+   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python  "&gt;import users_pb2  
+import sys  
+import config as cfg  
+import rabbit
+
+r = rabbit.Rabbit()  
+list_users = users_pb2.ListUsers()
+
+def input(user):  
+    user.id = int(raw_input("Enter User ID: "))  
+    user.name = raw_input("Enter name: ")  
+    email = raw_input("Enter email address (blank for none): ")  
+    if email != ”:  
+        user.email = email  
+    
+def send_rabbit(data):  
+    # Connect to RabbitMQ and create channel  
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))
+    channel = connection.channel()  
+    # Declare queue to send data  
+    channel.queue_declare(queue=cfg.QUEUE_TOPIC)  
+    # Send data  
+    channel.basic_publish(exchange=”, routing_key=cfg.QUEUE_TOPIC, body=data)  
+    print(" [x] Sent data to RabbitMQ")  
+    connection.close()
+
+try:  
+    # Add list users  
+    input(list_users.user.add())  
+    # encode data  
+    data_encode = list_users.SerializeToString()  
+    # Send to rabbit  
+    r.send(cfg.QUEUE_TOPIC, data_encode)  
+    
+except Exception as e:  
+    print("Send data is error")  
+    print(e)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="step5writeconsumerusethepythonprotocolbufferapitoreceiveanddecodemessagesfromrabbitmqserver"&gt;Step 5: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server&lt;/h3&gt;
+
+&lt;p&gt;And the finally step, we will write a &lt;strong&gt;consumer&lt;/strong&gt; to receive data and decode it. The content of &lt;strong&gt;&lt;em&gt;consumer.py:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python  "&gt;import users_pb2  
+import sys  
+import config as cfg
+
+import rabbit
+
+r = rabbit.Rabbit()  
+list_users = users_pb2.ListUsers()
+
+def show(list_users):  
+    for user in list_users.user:  
+        print("User ID: {}".format(user.id))  
+        print("User Name: {}".format(user.name))  
+        if user.HasField(’email’):  
+            print("Email: {}".format(user.email))
+
+def callback_rabbit(ch, method, properties, body):  
+    #print("Method: {}".format(method))  
+    #print("Properties: {}".format(properties))
+
+    print("n================================================n")  
+    list_users.ParseFromString(body)  
+    show(list_users)  
+
+    print("n================================================n")
+
+try:  
+    # Receive Data from rabbit  
+    r.receive(cfg.QUEUE_TOPIC, callback_rabbit)  
+except Exception as e:  
+    print("receive data is error")  
+    print(e)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="testproducerandconsumer"&gt;Test Producer and Consumer&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The first, you run producer:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;(env)ngoccuong@ubuntu2:~/working/source_code/protocol_buffer_python$ python producer.py
+
+Enter User ID:  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And enter your value  &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;After that, you run consumer, if you see as below, it is work properly :&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;(env)ngoccuong@ubuntu2:~/working/source_code/protocol_buffer_python$ python consumer.py  
+
+[*] Waiting for messages. To exit press CTRL+C  
+User ID: 2  
+User Name: cuong ba ngoc  
+Email: cuongbangoc@gmail.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  &lt;br&gt;
+So, we have completed install RabbitMQ as queue, send and receive &lt;strong&gt;Protocol Buffer&lt;/strong&gt; data with it. Thank you for reading.&lt;/p&gt;
+
+&lt;p&gt;You can see full source code on:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/cuongbangoc/protocol_buffers_python"&gt;https://github.com/cuongbangoc/protocol&lt;em&gt;buffers&lt;/em&gt;python&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>Protocol Buffers and RabbitMQ on Ubuntu 14.04 Part 1</title><description>&lt;h5 id="thisarticleisthefirstpostinseries"&gt;This article is the first post in series:&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/"&gt;Introduce Protocol buffer and install protocol buffer compiler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/"&gt;Wrire Producer and Consumer to work with protocol buffer and RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;In the distributed systems or systems is designed with micro services, to communicate between other systems is important. &lt;a href="https://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/"&gt;In the previous article&lt;/a&gt;&lt;/p&gt;</description><link>http://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/</link><guid isPermaLink="false">1b1392e1-7540-4533-844a-fa58c00e011b</guid><category>consumer</category><category>git</category><category>Linux</category><category>producer</category><category>protocol buffer</category><category>rabbitmq</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Wed, 26 Aug 2015 14:41:56 GMT</pubDate><content:encoded>&lt;h5 id="thisarticleisthefirstpostinseries"&gt;This article is the first post in series:&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-1/"&gt;Introduce Protocol buffer and install protocol buffer compiler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/protocol-buffers-and-rabbitmq-on-ubuntu-14-04-part-2/"&gt;Wrire Producer and Consumer to work with protocol buffer and RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;In the distributed systems or systems is designed with micro services, to communicate between other systems is important. &lt;a href="https://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/"&gt;In the previous article&lt;/a&gt;, I am shown to you use JSON format to transfer data with RabbitMQ. In this article, I will show to you how to use &lt;strong&gt;Protocol Buffers&lt;/strong&gt; to encode, decode data and transfer data with RabbitMQ as Queue in your system.&lt;/p&gt;
+
+&lt;p&gt;Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler. It is developed by Google. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the “old” format.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To use Protocol Buffers in my systems, I will:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Step 1&lt;/strong&gt;: Install Protocol buffer compiler on Ubuntu 14.04&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 2&lt;/strong&gt;: Define message structure formats in a &lt;code&gt;.proto&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 3&lt;/strong&gt;: Use the protocol buffer compiler&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 4&lt;/strong&gt;: Write Producer use the Python protocol buffer API to encode and send messages to RabbitMQ server&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 5&lt;/strong&gt;: Write Consumer use the Python protocol buffer API to receive and decode messages from RabbitMQ server&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="prerequisites"&gt;Prerequisites&lt;/h3&gt;
+
+&lt;p&gt;You must have RabbitMQ in your systems. If you do not have RabbitMQ, Please read this post and install it.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/"&gt;Install RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="step1installprotocolbuffercompileronubuntu1404"&gt;Step 1: Install Protocol buffer compiler on Ubuntu 14.04&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Installing gcc compiler on Ubuntu&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get update  
+sudo apt-get install build-essential
+
+#check gcc  
+gcc -v  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Download and Extract the protocol buffer archive&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;wget https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz  
+tar -xzvf protobuf-2.6.1.tar.gz  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install Protocol buffer compiler&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;cd protobuf-2.6.1  
+sudo ./configure  
+make  
+make check  
+sudo make install  
+protoc –version  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sometimes the latest version of protocol version does not load up. So we can do it manually by this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash  "&gt;sudo ldconfig  
+protoc –version  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="step2definemessagestructureformatsinaprotofile"&gt;Step 2: Define message structure formats in a &lt;code&gt;.proto&lt;/code&gt; file&lt;/h3&gt;
+
+&lt;p&gt;In this step, You need to define your data which you want to send to Rabbit. I will define a message for User information and a message for ListUsers.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;mkdir protocol_buffers_python  
+cd protocol_buffers_python  
+vim users.proto  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And content of &lt;em&gt;users.proto :&lt;/em&gt; &lt;br&gt;
+   &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-java  "&gt;package tutorial;  
+message User {  
+     required string name = 1;  
+     required int32 id = 2;  
+     optional string email = 3;  
+}
+
+message ListUsers {  
+     repeated User user = 1;  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the syntax is similar to C++ or Java. Let’s go through each part of the file and see what it does.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;.proto&lt;/code&gt; file starts with a package declaration, which helps to prevent naming conflicts between different projects. In Python, packages are normally determined by directory structure, so the &lt;code&gt;package&lt;/code&gt; you define in your &lt;code&gt;.proto&lt;/code&gt; file will have no effect on the generated code. However, you should still declare one to avoid name collisions in the Protocol Buffers name space as well as in non-Python languages&lt;/p&gt;
+
+&lt;p&gt;Next, you have your message definitions. A message is just an aggregate containing a set of typed fields. Many standard simple data types are available as field types, including &lt;code&gt;bool&lt;/code&gt;, &lt;code&gt;int32&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt;, &lt;code&gt;double&lt;/code&gt;, and &lt;code&gt;string&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The ” = 1″, ” = 2″ markers on each element identify the unique “tag” that field uses in the binary encoding. Tag numbers 1-15 require one less byte to encode than higher numbers, so as an optimization you can decide to use those tags for the commonly used or repeated elements, leaving tags 16 and higher for less-commonly used optional elements.&lt;/p&gt;
+
+&lt;p&gt;Each field must be annotated with one of the following modifiers:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;required&lt;/code&gt;: a value for the field must be provided, otherwise the message will be considered “uninitialized”. Serializing an uninitialized message will raise an exception. Parsing an uninitialized message will fail. Other than this, a required field behaves exactly like an optional field.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;optional&lt;/code&gt;: the field may or may not be set. If an optional field value isn’t set, a default value is used.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repeated&lt;/code&gt;: the field may be repeated any number of times (including zero). The order of the repeated values will be preserved in the protocol buffer. Think of repeated fields as dynamically sized arrays.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You’ll find a complete guide to writing &lt;code&gt;.proto&lt;/code&gt; files – including all the possible field types – in the &lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;Protocol Buffer Language Guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id="step3usetheprotocolbuffercompiler"&gt;Step 3: Use the protocol buffer compiler&lt;/h3&gt;
+
+&lt;p&gt;Now that you have a &lt;code&gt;.proto&lt;/code&gt;, the next thing you need to do is generate the classes you’ll need to read and write ListUsers message. To compiler you can type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;protoc -I=$SRC_DIR –python_out=$DST_DIR $SRC_DIR/users.proto  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;$SRC_DIR : where your application’s source code lives&lt;/li&gt;
+&lt;li&gt;$DST_DIR: where you want the generated code to go&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To me, it is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;protoc -I=/home/ngoccuong/working/source_code/protocol_buffers_python \  
+--python_out=/home/ngoccuong/working/source_code/protocol_buffers_python \ 
+/home/ngoccuong/working/source_code/protocol_buffers_python/users.proto
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Because I want Python classes, I use the &lt;code&gt;--python_out&lt;/code&gt; option – similar options are provided for other supported languages. With Java, it is &lt;code&gt;–-java_out&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This generates &lt;code&gt;users_pb2.py&lt;/code&gt; in your specified destination directory.&lt;/p&gt;
+
+&lt;p&gt;In this article, I will finish at &lt;strong&gt;step 3&lt;/strong&gt;. We have installed protocol buffer compiler and use it to compiler &lt;strong&gt;.proto&lt;/strong&gt; file. In the next article, I will continue with&lt;em&gt;* Step 4&lt;/em&gt;* and &lt;strong&gt;step 5&lt;/strong&gt; to work between Protocol buffer and RabbitMQ.&lt;/p&gt;
+
+&lt;p&gt;You can see full source code on:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/cuongbangoc/protocol_buffers_python"&gt;https://github.com/cuongbangoc/protocol&lt;em&gt;buffers&lt;/em&gt;python&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>Installing Node.js on Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Node.js is a Javascript platform for server-side programming that allows users to build network and web applications quickly. By leveraging Javascript on both the front-end and the back-end, development can be more consistent and be designed within the same system.&lt;/p&gt;
+
+&lt;p&gt;In this guide, we’ll show you how&lt;/p&gt;</description><link>http://cuongbangoc.github.io/installing-node-js-on-ubuntu-14-04/</link><guid isPermaLink="false">8dc64708-6e18-4c09-9f55-8bd67f6761da</guid><category>Linux</category><category>nodejs</category><category>Ubuntu</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Sat, 15 Aug 2015 00:21:20 GMT</pubDate><media:content url="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913220/nodejs_nhbczg.png" medium="image"/><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913220/nodejs_nhbczg.png" alt="Installing Node.js on Ubuntu 14.04"&gt;&lt;p&gt;Node.js is a Javascript platform for server-side programming that allows users to build network and web applications quickly. By leveraging Javascript on both the front-end and the back-end, development can be more consistent and be designed within the same system.&lt;/p&gt;
+
+&lt;p&gt;In this guide, we’ll show you how to install Node.js on an Ubuntu 14.04 server.&lt;/p&gt;
+
+&lt;h3 id="installingnodejs"&gt;Installing Nodejs&lt;/h3&gt;
+
+&lt;p&gt;Ubuntu 14.04 contains a version of Node.js in its default repositories that can be used to easily provide a consistent experience across multiple servers. The version in the repositories is 0.10. This will not be the latest version, but it should be quite stable. To install nodejs, you just have to use APT:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Installing Node.js in default Debian / Ubuntu package&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;# update 
+sudo apt-get update  
+# Then install nodejs with: 
+sudo apt-get install nodejs  
+# Finally install npm: 
+sudo apt-get install npm  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Installing the latest version Node.js with v0.12 using nodesource repository&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;# Note the new setup script name for Node.js v0.12 
+curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -  
+# Then install with: 
+sudo apt-get install -y nodejs  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Checking&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;# Node 
+ngoccuong@cuongbn:~$ node -v  
+v0.12.7  
+ngoccuong@cuongbn:~$ npm -v  
+2.11.3  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We have done install nodejs in ubuntu 14.04.&lt;/p&gt;</content:encoded></item><item><title>Install RabbitMQ and Send JSON data With Python on Ubuntu</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;RabbitMQ is one of the more popular message broker solutions, offered with an open-source license (Mozilla Public License v1.1) as an implementation of Advanced Message Queuing Protocol(AMQP). Developed using the Erlang language, it is actually relatively easy to use and get started. It was first published in&lt;/p&gt;</description><link>http://cuongbangoc.github.io/install-rabbitmq-and-send-json-data-with-python-on-ubuntu/</link><guid isPermaLink="false">e2a04ce5-ac40-4f0d-8da1-0e96109d11c1</guid><category>git</category><category>Linux</category><category>Python</category><category>rabbit</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Wed, 05 Aug 2015 01:01:14 GMT</pubDate><media:content url="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913221/rabbit-logo_dfefmx.jpg" medium="image"/><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913221/rabbit-logo_dfefmx.jpg" alt="Install RabbitMQ and Send JSON data With Python on Ubuntu"&gt;&lt;p&gt;RabbitMQ is one of the more popular message broker solutions, offered with an open-source license (Mozilla Public License v1.1) as an implementation of Advanced Message Queuing Protocol(AMQP). Developed using the Erlang language, it is actually relatively easy to use and get started. It was first published in early 2007.&lt;/p&gt;
+
+&lt;p&gt;In this article, I will show you about RabbitMQ, How to install RabbitMQ on Ubuntu 14.04 as Queue Messaging. And after that, I will write demo a simple producer to send json data to RabbitMQ, a simple consumer to receive json data from RabbitMQ.&lt;/p&gt;
+
+&lt;h3 id="installingrabbitmq"&gt;Installing RabbitMQ&lt;/h3&gt;
+
+&lt;p&gt;On Ubuntu 14.04, Install RabbitMQ is very easy. You just typing in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get update  
+sudo apt-get install rabbitmq-server  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="managingrabbitmq"&gt;Managing RabbitMQ&lt;/h3&gt;
+
+&lt;p&gt;To enable RabbitMQ Management Console, run the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo rabbitmq-plugins enable rabbitmq_management  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add user to access:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo rabbitmqctl add_user admin admin  
+sudo rabbitmqctl set_user_tags admin administrator  
+sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After that, You can access to manager UI using your web browser:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;http://your_ip:15672  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913223/rabbit_login_lvm1p7.png"&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/h_153,w_300/v1440913223/rabbit_login_lvm1p7.png" alt="Install RabbitMQ and Send JSON data With Python on Ubuntu" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Enter user and password that is created above to login and you will see:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913222/rabbit_manager_kmlnhk.png"&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913222/rabbit_manager_kmlnhk.png?w=300" alt="Install RabbitMQ and Send JSON data With Python on Ubuntu" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id="writeproducertosendjsondata"&gt;Write Producer to send JSON data&lt;/h3&gt;
+
+&lt;p&gt;I will write producer by Python and use &lt;strong&gt;pika&lt;/strong&gt; to work with RabbitMQ.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The first,&lt;/strong&gt; I will create &lt;strong&gt;virtualenv&lt;/strong&gt; for my environment.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;virtualenv -p /usr/bin/python2.7 env  
+source env/bin/activate  
+pip install pika  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Next&lt;/strong&gt;, I will need to write config file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python"&gt;RABBIT_HOST= 'localhost' QUEUE_TOPIC = 'topic_name'  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Next step&lt;/strong&gt;, I write producer to send JSON data in &lt;em&gt;producer.py&lt;/em&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python"&gt;import pika  
+import json  
+import config as cfg 
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))  
+channel = connection.channel() channel.queue_declare(queue=cfg.QUEUE_TOPIC) 
+
+data = {  
+    "id": 1,         
+    "name": "My Name",         
+    "description": "This is description about me"     
+} 
+
+message = json.dumps(data)  
+channel.basic_publish(exchange='', routing_key=cfg.QUEUE_TOPIC, body=message) 
+
+print(" [x] Sent data to RabbitMQ") 
+
+connection.close()  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Next&lt;/strong&gt;, I will write consumer to receive and print data in &lt;em&gt;consumer.py&lt;/em&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-python"&gt;import pika  
+import json  
+import config as cfg 
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=cfg.RABBIT_HOST))  
+channel = connection.channel() channel.queue_declare(queue=cfg.QUEUE_TOPIC) 
+
+print(' [*] Waiting for messages. To exit press CTRL+C') 
+
+def callback(ch, method, properties, body):  
+    print("Method: {}".format(method))     
+    print("Properties: {}".format(properties))     
+    data = json.loads(body)     
+    print("ID: {}".format(data['id']))     
+    print("Name: {}".format(data['name']))      
+    print('Description: {}'.format(data['description'])) 
+
+channel.basic_consume(callback, queue=cfg.QUEUE_TOPIC,no_ack=True)  
+channel.start_consuming()  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Finally&lt;/strong&gt;, I will run it. I run producer and will see:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;(env)ngoccuong@server:~/working/source_code/rabbit-queue$ python producer.py
+[x] Sent data to RabbitMQ 
+(env)ngoccuong@server:~/working/source_code/rabbit-queue$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;After&lt;/strong&gt;, With consumer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;(env)ngoccuong@server:~/working/source_code/rabbit-queue$ python consumer.py  
+[*] Waiting for messages. To exit press CTRL+C 
+Method: &amp;lt;Basic.Deliver(['consumer_tag=ctag1.a3b15380056c4c55b95f316598ba51a5',  
+'delivery_tag=1', 'exchange=', 'redelivered=False', 'routing_key=topic_name'])&amp;gt;  
+Properties: &amp;lt;BasicProperties&amp;gt;  
+ID: 1  
+Name: My Name  
+Description: This is description about me  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, we have completed install RabbitMQ as queue, send and receive JSON data with it. Thank you for reading.&lt;/p&gt;
+
+&lt;p&gt;You can see full source code on:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/cuongbangoc/rabbit-queue-python"&gt;https://github.com/cuongbangoc/rabbit-queue-python&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>Fix Error When Installing Scrapy on Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Scrapy&lt;/strong&gt; is an application framework for crawling web sites and extracting structured data which can be used for a wide range of useful applications, like data mining, information processing or historical archival. But when you normally install Scrapy on Ubuntu 14.04, you can see error and cannot completed&lt;/p&gt;</description><link>http://cuongbangoc.github.io/fix-error-when-installing-scrapy-on-ubuntu-14-04/</link><guid isPermaLink="false">04be0965-ae87-4fd3-8ef1-4a78c73f0255</guid><category>Linux</category><category>pip</category><category>Python</category><category>Scrapy</category><category>Ubuntu</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Fri, 29 May 2015 13:25:05 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Scrapy&lt;/strong&gt; is an application framework for crawling web sites and extracting structured data which can be used for a wide range of useful applications, like data mining, information processing or historical archival. But when you normally install Scrapy on Ubuntu 14.04, you can see error and cannot completed installing.  In this article, I will show Fix error and how to install scrapy on Ubuntu 14.04.&lt;/p&gt;
+
+&lt;h3 id="installing"&gt;Installing&lt;/h3&gt;
+
+&lt;p&gt;If you install it normally, you can see error :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo pip install scrapy =&amp;gt; error: command 'x86_64-linux-gnu-gcc' failed with exit status 1  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or any other errors is the same as it. To fix it, before install scrapy, you will need to install some packages in Ubuntu 14.04:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install build-essential libssl-dev libffi-dev python-dev libxml2-dev libxslt1-dev  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After installing these packages, it worked and you can install scrapy successful.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo pip install scrapy  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Thank you very much!!!&lt;/p&gt;</content:encoded></item><item><title>Automatically Deploy with Jenkins and Git (Part 2)</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Today, I will show to you how to create a new job to deploy source code in Git Server to Deployment Server by Jenkins. In previous article, we have installed successful Jenkins, so we will use it to create new job.&lt;/p&gt;
+
+&lt;h3 id="addingpublicsshkey"&gt;Adding public ssh key&lt;/h3&gt;
+
+&lt;p&gt;The first step, we&lt;/p&gt;</description><link>http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-2/</link><guid isPermaLink="false">92e94169-ae4f-47eb-a012-ef06139c5a2b</guid><category>deploy</category><category>git</category><category>jenkins</category><category>Linux</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Mon, 18 May 2015 18:26:23 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Today, I will show to you how to create a new job to deploy source code in Git Server to Deployment Server by Jenkins. In previous article, we have installed successful Jenkins, so we will use it to create new job.&lt;/p&gt;
+
+&lt;h3 id="addingpublicsshkey"&gt;Adding public ssh key&lt;/h3&gt;
+
+&lt;p&gt;The first step, we need to add ssh-key of Jenkins’s server to Git Server and Deployment Server. After that Jenkins can communicate with Git Server and Deployment Server without enter password. You log into Jenkins Server with jenkins user, after that gen-key by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;ssh-keygen -t rsa -C "your_email@example.com"  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step, you open &lt;strong&gt;/var/lib/jenkins/.ssh/id&lt;em&gt;rsa.pub&lt;/em&gt;&lt;/strong&gt; and copy content. The next step, you go to Git Server and Deployment Server and adding jenkin’s key. You paste jenkin’s key to &lt;strong&gt;/home/username/.ssh/authorizedkeys&lt;/strong&gt; of the both Git Server and Deployment Server.&lt;/p&gt;
+
+&lt;h3 id="installgitclientpluginforjenkins"&gt;Install Git client plugin for Jenkins&lt;/h3&gt;
+
+&lt;p&gt;The next step, you go to Jenkins server &lt;a href="http://yourserver:8080"&gt;http://yourserver:8080&lt;/a&gt; and install “git client plugin” for jenkins. You go to Jenkins with administrator user, after that go to Manager Jenkins and choose Manager Plugin. Next, you click on “Available” tab and search “Git client plugin”, checking it and click “install without restart”. Now, You have Git client plugin installed.&lt;/p&gt;
+
+&lt;h3 id="installrsync"&gt;Install rsync&lt;/h3&gt;
+
+&lt;p&gt;The next, you need to install “rsync”. We will use it to copy source code to Deployment Server. To install rsync, you only typing in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install rsync  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="createajobtodeploy"&gt;Create a job to deploy&lt;/h3&gt;
+
+&lt;p&gt;Now, we will create job to deploy source code in Git Server to Deployment Server by Jenkins. You go to Jenkins Server and login by admin user. After that, you click “New item” in the left menu and choose free-style project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440942115/wordpress_blog/9.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;Press Ok and on the next page, You checking “This build is parameterized” to deploy with parameter for job.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/config-param-jenkins_ynecql.jpg"&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/config-param-jenkins_ynecql.jpg?w=300" alt="config param jenkins" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The next step, In Source Code Management you choose Git and enter Repository URL of code and Branch to build.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://cuongba.16mb.com/wp-content/uploads/2015/05/git-config-jenkins.png"&gt;&lt;img src="http://cuongba.16mb.com/wp-content/uploads/2015/05/git-config-jenkins.png?w=300" alt="Git config jenkins" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The next step, In build tab, you add Execute shell.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440942272/wordpress_blog/10.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;After that fill in command textbox: install rsync, you only typing in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;DESTINATION_SERVER=username@your_deployment_server  
+DESTINATION_PATH=/home/sigma/cuongbn/folder_deploy  
+RSYNC_PARAMS='-rl --del --exclude=.git --exclude rsync.log --log-file=rsync.log '  
+# run unit test if you have 
+python3 unit_test/test.py  
+# deploy sources 
+eval rsync $RSYNC_PARAMS ./ $DESTINATION_SERVER:$DESTINATION_PATH  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The final, You click Save button. Now, in the dashboard of Jenkins will show your job. You choose it and click “Build with Parameters” to Build and deploy your code to Deployment Server.&lt;/p&gt;</content:encoded></item><item><title>Automatically Deploy with Jenkins and Git (Part 1)</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or websites to various endpoints or to run unit/behaviour-driven software&lt;/p&gt;</description><link>http://cuongbangoc.github.io/automatically-deploy-with-jenkins-and-git-part-1/</link><guid isPermaLink="false">642628b1-0219-4466-ba77-195725aff80b</guid><category>deploy</category><category>git</category><category>jenkins</category><category>Linux</category><category>tool</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Mon, 18 May 2015 17:45:32 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Jenkins is an open source Continuous Integration tool. Originally started as Hudson in 2004 but due to a dispute in 2011 they forked and continued under the name, Jenkins. It can be used to build software, deploy software, or websites to various endpoints or to run unit/behaviour-driven software tests. This article will show how to install and configure Jenkins. After setting up the basics, you’ll create a new job to deploy your source code that is store in Git to Server Deployment.&lt;/p&gt;
+
+&lt;h3 id="installingjenkinsinubuntu1404"&gt;Installing Jenkins in Ubuntu 14.04&lt;/h3&gt;
+
+&lt;p&gt;This is the Debian package repository of Jenkins to automate installation and upgrade. To use this repository, first add the key to your system:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step, add the following entry in your /etc/apt/sources.list&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;deb http://pkg.jenkins-ci.org/debian binary/  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The final, update your package index and install Jenkins:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get update sudo apt-get install jenkins  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="configurejenkins"&gt;Configure Jenkins&lt;/h3&gt;
+
+&lt;p&gt;Now that Jenkins have installed and running. You can go to &lt;a href="http://yourserver.com:8080"&gt;http://yourserver.com:8080&lt;/a&gt; to see. You will be welcomed by the default Jenkins screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941389/wordpress_blog/1.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;Default, After install Jenkins then everyone can access it. We will need to re-configure security of Jenkins. The first, go to Manage Jenkins in the left menu. Then, click Setup Security on the page loaded.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941514/wordpress_blog/2.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;The next, enable the security by checking “Enable security” checkbox. The next, in “Security Realm”, checking “Jenkins’ own user database”. If you want to other users can sign up then you can check “Allow users to sign up”.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941569/wordpress_blog/4.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;The next, go to Authorization and checking “Matrix-based security”. And setup permission for Anonymous only view. You can also setup permission for other users if you want.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png"&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440913226/permission-in-jenkins-2_udxezo.png?w=300" alt="Permission in Jenkins 2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Click save button at the bottom of the page, after reload page, you will see a login form. Ignore it and go to &lt;a href="http://yourserver:8080"&gt;http://yourserver:8080&lt;/a&gt; again and you will see a sign up form:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://res.cloudinary.com/cuongbangoc/image/upload/v1440941702/wordpress_blog/7.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;Sign up with the your username and password and you will be administrator of Jenkins install. In the next article, I will show how to create a job to deploy source code in Git server to Deployment Server.&lt;/p&gt;</content:encoded></item><item><title>Set Up Package Manager (PIP) And Virtual Environments in Python on Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Python has many libraries support and they are not install default when you install python. Packages in Python can be tools, libraries, frameworks and applications. Given the popularity and the beauty of the language, there are tens of thousands of packages available which you can make use of for&lt;/p&gt;</description><link>http://cuongbangoc.github.io/set-up-virtual-environments-in-python-on-ubuntu-14-04/</link><guid isPermaLink="false">79c8a351-f3d1-4632-813d-d9b3985a6562</guid><category>Linux</category><category>pip</category><category>Python</category><category>virtual</category><category>virtualenv</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Tue, 21 Apr 2015 13:35:07 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Python has many libraries support and they are not install default when you install python. Packages in Python can be tools, libraries, frameworks and applications. Given the popularity and the beauty of the language, there are tens of thousands of packages available which you can make use of for your own projects. So package management tools will help us manager and use them. One of the most common Python package manager is &lt;strong&gt;PIP.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So, if you have many projects and each of projects is used by different packages?? they will be conflicted. And to resolve it, we will use &lt;strong&gt;virtualenv&lt;/strong&gt; package. A virtual environment created using this tool includes a fresh copy of the Python binary itself as well as a copy of the entire Python standard library. And now, we will use a virtual environment for each projects.&lt;/p&gt;
+
+&lt;h3 id="setupandusingpip"&gt;Setup and using pip&lt;/h3&gt;
+
+&lt;p&gt;In ubuntu, you can use ATP to install pip. You will typing in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install python-pip # Python2  
+#or 
+sudo apt-get install python3-pip #(python &amp;gt; 3.0)  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, you have pip on your system.&lt;/p&gt;
+
+&lt;p&gt;To install package in pip, you can typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo pip install &amp;lt;package-name&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To uninstall package in pip, you can typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo pip uninstall &amp;lt;package-name&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="setupandusingvirtualenv"&gt;Setup and using Virtualenv&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Setup&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We will use pip to install virtualenv package. You open your terminal and typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo pip install virtualenv  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Using virtualenv&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Creating a virtual environment. You open your terminal and typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;virtualenv virt_name  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Creating a virtual environment with a custom Python interpreter. You open your terminal and typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;virtualenv --python=/opt/python-3.4/bin/python virt_name  
+# or 
+virtualenv -p /usr/bin/python3 virt2  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To use a created virtual environment, you need to activate it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;source virt_name/bin/active  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, anything you do will only apply in virtual environment. You can install a new package or run script python.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;(virt_name)ngoccuong@ngoccuong-K43SJ:~/Desktop/myproject$ python demo.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use the &lt;strong&gt;which&lt;/strong&gt; command to check the Python binary that is used in the current virtual environment.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;which python  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If everything is working well, you should be get something similar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;/home/ngoccuong/Desktop/myproject/virt_name/bin/python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Deactivating a virtual environment:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;deactivate  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And to delete a virtual environment, you can use the &lt;strong&gt;rm -rf&lt;/strong&gt; command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;rm -rf virt_name  
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title>Setting Up A Repository And Some Commands In Git</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;In the previous guide, I have shown how to install Git. In this article, we will create a repository and run some basic commands with it.&lt;/p&gt;
+
+&lt;h3 id="createarepositoryandsomebasiccommandsneedtoremember"&gt;Create a repository and some basic commands need to remember&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1) git init&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;git init&lt;/strong&gt; command creates a new Git repository. It&lt;/p&gt;</description><link>http://cuongbangoc.github.io/setting-up-a-repository-and-some-commands-in-git/</link><guid isPermaLink="false">2ae0918b-8da1-425a-8811-4c6caaf11136</guid><category>git</category><category>Linux</category><category>repository</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Sun, 19 Apr 2015 16:53:21 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;In the previous guide, I have shown how to install Git. In this article, we will create a repository and run some basic commands with it.&lt;/p&gt;
+
+&lt;h3 id="createarepositoryandsomebasiccommandsneedtoremember"&gt;Create a repository and some basic commands need to remember&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1) git init&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;git init&lt;/strong&gt; command creates a new Git repository. It can be used to convert an existing, unversioned project to a Git repository or initialize a new empty repository. Executing &lt;code&gt;git init&lt;/code&gt; will creates a &lt;code&gt;.git&lt;/code&gt; sub-directory in the project root, which contains all of the necessary meta data for the repo.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git init  
+# or 
+git init [directory]  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2) git clone&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;If you have an exist repository, you will only clone it. The &lt;strong&gt;git clone&lt;/strong&gt; command copies an existing Git repository. This is sort of like &lt;strong&gt;svn checkout&lt;/strong&gt;, except the “working copy” is a full-fledged Git repository, it has its own history, manages its own files, and is a completely isolated environment from the original repository. As a convenience, cloning automatically creates a remote connection called origin pointing back to the original repository. This makes it very easy to interact with a central repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git clone &amp;lt;repo&amp;gt;  
+# or
+git clone &amp;lt;repo&amp;gt; &amp;lt;directory&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Clone the repository located at &lt;code&gt;&amp;lt;repo&amp;gt;&lt;/code&gt; onto the local machine. The original repository can be located on the local file system or on a remote machine accessible via HTTP or SSH. The second command will clone the repository located at &lt;code&gt;&amp;lt;repo&amp;gt;&lt;/code&gt; into the folder called &lt;code&gt;&amp;lt;directory&amp;gt;&lt;/code&gt; on the local machine. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git clone ssh://cuongba@example.com/path/to/my-project.git  
+cd my-project # Start working on the project  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;3) git status&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;This command to view status of working directory and the staging area. If you have any changing in project then they will be shown. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;ngoccuong@ngoccuong-K43SJ:~/working/my-project$ git status  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+Changes not staged for commit:  
+   (use "git add &amp;lt;file&amp;gt;..." to update what will be committed)   
+   (use "git checkout -- &amp;lt;file&amp;gt;..." to discard changes in working directory)     
+modified:  
+   .gitignore     
+    protected/config/main.php 
+no changes added to commit (use "git add" and/or "git commit -a")  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4) git add&lt;/strong&gt; and &lt;strong&gt;git commit&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;This command is used to add all changes in &lt;code&gt;&amp;lt;file&amp;gt;&lt;/code&gt; or &lt;code&gt;&amp;lt;directory&amp;gt;&lt;/code&gt; in working directory for the next commit and commit them into your local repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git add &amp;lt;file&amp;gt; &amp;lt;file&amp;gt;  
+# or 
+git add -A # (add all of changing files)  
+git commit -m &amp;lt;message&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;ngoccuong@ngoccuong-K43SJ:~/working/my-project$ git add protected/config/main.php  
+# or 
+ngoccuong@ngoccuong-K43SJ:~/working/my-project$ git add -A  
+ngoccuong@ngoccuong-K43SJ:~/working/my-project$ git commit -m "add main.php file"  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;5) git pull&lt;/strong&gt; and &lt;strong&gt;git push&lt;/strong&gt; &lt;/p&gt;
+
+&lt;p&gt;If you have a remote repository then &lt;code&gt;git pull origin &amp;lt;branch&amp;gt;&lt;/code&gt; command will help you update all of changing in branch of remote repository to local repository. I will talk about “branch” in the next article. With &lt;code&gt;git push origin &amp;lt;branch&amp;gt;&lt;/code&gt;, it will push all of changing in commits to remote &lt;code&gt;origin&lt;/code&gt; repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git pull origin master  
+git push origin master  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These are popular commands of git that you will alway use to work with Git.&lt;/p&gt;</content:encoded></item><item><title>Set Up Git On Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;An indispensable tool in modern software development is version control system. Version control systems allow you to keep track of your software at the source level. You can track changes, revert to previous stages, and branch to create alternate versions of files and directories.&lt;/p&gt;
+
+&lt;p&gt;One of the most popular&lt;/p&gt;</description><link>http://cuongbangoc.github.io/set-up-git-on-ubuntu-14-04/</link><guid isPermaLink="false">04f3af20-1348-4010-a1c8-3d05f11c9ceb</guid><category>git</category><category>Linux</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Sun, 19 Apr 2015 15:45:04 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;An indispensable tool in modern software development is version control system. Version control systems allow you to keep track of your software at the source level. You can track changes, revert to previous stages, and branch to create alternate versions of files and directories.&lt;/p&gt;
+
+&lt;p&gt;One of the most popular version control system is Git. Git is very powerful, useful and flexible  to manage and develop your source code. In this article, I will show how to install and configure Git on Ubuntu 14.04&lt;/p&gt;
+
+&lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;In ubuntu 14.04, you can very easy to install Git. You can use APT to install it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get update  
+sudo apt-get install git  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That command will download and install Git to your system. The next, you need to configure for Git.&lt;/p&gt;
+
+&lt;h3 id="configuration"&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;Now, you have Git installed and you need to do a few things. The easiest way of doing is use “git config” command. You are also directly edit in .gitconfig file. You need to provide your name and email address because &lt;code&gt;git&lt;/code&gt; embeds this information into each commit we do.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git config --global user.name "Your Name"  
+git config --global user.email "your_email@domain.com"  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or, directly edit in .gitconfig file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;vim ~/.gitconfig 
+
+[user]        
+name = Your Name  
+email = your_email@domain.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see all of the configuration by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;git config --list  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, git is ready to use your system. In the next guide, I will show how to setup and clone a repository with Git.&lt;/p&gt;</content:encoded></item><item><title>Set Up Master-Slave Replication in MySQL</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;MySQL replication is a process which allows you have a copies data from MySQL and update automatically from a master to a slave database. It is helpful to backup your data or load balancing in your system. You can setup and configure your system to write (Insert, Update, Delete)&lt;/p&gt;</description><link>http://cuongbangoc.github.io/set-up-master-slave-replication-in-mysql/</link><guid isPermaLink="false">3ea7b24a-8bc1-4bd5-9af0-4e2917a20b84</guid><category>database</category><category>Linux</category><category>master</category><category>mysql</category><category>replication</category><category>slave</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Thu, 19 Mar 2015 22:40:50 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;MySQL replication is a process which allows you have a copies data from MySQL and update automatically from a master to a slave database. It is helpful to backup your data or load balancing in your system. You can setup and configure your system to write (Insert, Update, Delete) data by master server , and read data from slave server. All changing data on master server will be updated automatically to slave server.&lt;/p&gt;
+
+&lt;p&gt;Today I will show a very simple example of mysql replication—one master will send information to a single slave. For the process to work you will need two IP addresses: one of the master server and one of the slave.&lt;/p&gt;
+
+&lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;This article, I assume that you have user with sudo privileges and have MySQL installed with root account. If you have not MySQL, you can install it by command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install mysql-server  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I will use two servers with IP addresses to set up:&lt;/p&gt;
+
+&lt;p&gt;– Master : 192.168.1.121&lt;/p&gt;
+
+&lt;p&gt;– Slave : 192.168.1.35&lt;/p&gt;
+
+&lt;h4 id="steponeconfigurethemasterdatabaseserver"&gt;Step one – configure the master database server&lt;/h4&gt;
+
+&lt;p&gt;We will open the configuration file on the master database server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/mysql/my.cnf  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We need to make a few changes it.&lt;/p&gt;
+
+&lt;p&gt;– The first, we find the binding section, that bind server to the localhost. If it is commented, then we need to remove comment for it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;bind-address = 127.0.0.1  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;– After that, we replace 127.0.0.1 to my IP of the master server (192.168.1.121).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;bind-address = 191.168.1.121  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;– The next, we configure to have server-id. You can choose any number for it, but it must be unique and can not match with any other server-id in your replication group. If it is commented, then let’s uncomment for it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server-id = 1  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;– The next, uncomment for log_bin line, where the real details of the replication are kept. The slave is going to copy all of the changes that are registered in the log.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;log_bin = /var/log/mysql/mysql-bin.log  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;– Finally, we need to design the database that will be replicated on the slave server. You can include more than one database by repeating this line for all of the databases you will need. Remember, uncomment it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;binlog_do_db = replication_database  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After you make all of the changes, go ahead and save and exit out of the configuration file. Now, we need to restart MySQL.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo service mysql restart  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step, we will grant privileges to the slave. we need to go to MySQL shell to do it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;mysql -u root -p
+
+GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'slave_password';
+
+FLUSH PRIVILEGES;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, master server should be working properly. You can check by command :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;SHOW MASTER STATUS;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will see a table that should look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;mysql&amp;gt; SHOW MASTER STATUS;  
++------------------+----------+-----------------------+------------------+
+|         File     | Position |      Binlog_Do_DB     | Binlog_Ignore_DB | 
++------------------+----------+-----------------------+------------------+ 
+| mysql-bin.000001 |   333    |  replication_database |                  | 
++------------------+----------+-----------------------+------------------+ 
+1 row in set (0.00 sec)  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we need to export data in master which will import to slave server. We will run command in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;mysqldump -u root -p replication_database &amp;gt; backup.sql  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id="steptwoconfiguretheslavedatabaseserver"&gt;Step two – configure the slave database server&lt;/h4&gt;
+
+&lt;p&gt;We have a master server running, now we will configure for slave server. The first, we need to import master’s data. Log into your slave server and open MySQL shell. We will create database which will be replicated from master server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;CREATE DATABASE replication_database; EXIT;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Import data by command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;mysql -u root -p replication_database &amp;lt; /path/to/backup.sql  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we will configure slave server in the same way as we did the master:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/mysql/my.cnf  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make some changes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server-id = 2  
+relay-log = /var/log/mysql/mysql-relay-bin.log  
+log_bin   = /var/log/mysql/mysql-bin.log  
+binlog_do_db = replication_database  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Remember&lt;/strong&gt;, uncomment for it. If database name of master and database name of slave are difference, then we will have some changes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server-id = 2  
+relay-log = /var/log/mysql/mysql-relay-bin.log  
+log_bin   = /var/log/mysql/mysql-bin.log  
+binlog_do_db = slave_database_name  
+replicate-rewrite-db = master_database_name-&amp;gt;slave_database_name  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Restart MySQL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo service mysql restart  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step is to enable the replication from within the MySQL shell.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;CHANGE MASTER TO MASTER_HOST='192.168.1.121', \  
+MASTER_USER='slave_user', MASTER_PASSWORD='slave_password', \  
+MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS= 333;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;– MASTER_HOST: IP address of master server&lt;/p&gt;
+
+&lt;p&gt;– MASTER&lt;em&gt;USER and MASTER&lt;/em&gt;PASSWORD: that is granted in the master server.&lt;/p&gt;
+
+&lt;p&gt;– MASTER&lt;em&gt;LOG&lt;/em&gt;FILE and MASTER&lt;em&gt;LOG&lt;/em&gt;POS: that is shown when run “SHOW MASTER STATUS”&lt;/p&gt;
+
+&lt;p&gt;Activate the slave server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;START SLAVE;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You be able to see the details of the slave replication by typing in this command. The G rearranges the text to make it more readable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;SHOW SLAVE STATUS\G  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If there is an issue in connecting, you can try starting slave with a command to skip over it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;  
+SLAVE START;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All done and we have a replication for master and slave database.&lt;/p&gt;</content:encoded></item><item><title>Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;When using the Nginx web server, &lt;code&gt;server blocks&lt;/code&gt; (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server.&lt;/p&gt;
+
+&lt;p&gt;In this guide, I will show configure server blocks in Nginx Web Server on an Ubuntu&lt;/p&gt;</description><link>http://cuongbangoc.github.io/set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04/</link><guid isPermaLink="false">c9373bca-7769-48fe-8751-aa899d815096</guid><category>Linux</category><category>Nginx</category><category>Server block</category><category>Virtual host</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Tue, 24 Feb 2015 00:33:53 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;When using the Nginx web server, &lt;code&gt;server blocks&lt;/code&gt; (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server.&lt;/p&gt;
+
+&lt;p&gt;In this guide, I will show configure server blocks in Nginx Web Server on an Ubuntu 14.04 server.&lt;/p&gt;
+
+&lt;h3 id="steponechangedocumentrootdirectories"&gt;Step one – Change Document Root Directories&lt;/h3&gt;
+
+&lt;p&gt;By default, Nginx on Ubuntu 14.04 has one server block enabled by default. It is configured to serve documents out of a directory at:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;/usr/share/nginx/html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I won’t use the default since it is easier to work with things in the &lt;code&gt;/var/www&lt;/code&gt; directory. So I will change document root directory to /var/www.&lt;/p&gt;
+
+&lt;p&gt;First, we need to create the necessary directories. We can do this with the following command. The &lt;code&gt;-p &lt;/code&gt;flag tells &lt;code&gt;mkdir&lt;/code&gt; to create any necessary parent directories along the way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo mkdir -p /var/www/test.com/html  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now that you have your directories created, we need to transfer ownership to our regular user. We can use the &lt;code&gt;$USER&lt;/code&gt; environmental variable to substitute the user account that we are currently signed in on. This will allow us to create files in this directory without allowing our visitors to create content.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo chown -R $USER:$USER /var/www/test.com/html  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The permissions of our web roots should be correct already if you have not modified your &lt;code&gt;umask&lt;/code&gt; value, but we can make sure by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo chmod -R 755 /var/www  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our directory structure is now configured and we can move on.&lt;/p&gt;
+
+&lt;h3 id="steptwocreatetestpage"&gt;Step two – Create test page&lt;/h3&gt;
+
+&lt;p&gt;Now that we have our directory structure set up, let’s create a default page for our sites so that we will have something to display.&lt;/p&gt;
+
+&lt;p&gt;Create an &lt;code&gt;index.html&lt;/code&gt; file in your domain:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;vim /var/www/test.com/html/index.html  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inside the file, we’ll create a really basic file that indicates what site we are currently accessing. It will look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;  &amp;lt;title&amp;gt;Welcome to Test.com!&amp;lt;/title&amp;gt;   
+  &amp;lt;h1&amp;gt;Success! The test.com server block is working&amp;lt;/h1&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save and close the file when you are finished. Now, you have a test page.&lt;/p&gt;
+
+&lt;h3 id="stepthreecreateserverblock"&gt;Step three – Create server block&lt;/h3&gt;
+
+&lt;p&gt;By default, Nginx contains one server block called &lt;code&gt;default&lt;/code&gt; which we can use as a template for our own configurations. We will begin by designing our server block and make the necessary modifications.&lt;/p&gt;
+
+&lt;p&gt;As mentioned above, we will create our server block config file by copying over the default file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;cd /etc/nginx/sites-available  
+sudo cp default test.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, open the new file you created in your text editor with root privileges:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/nginx/sites-available/test.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ignoring the commented lines, the file will look similar to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /usr/share/nginx/html; 
+    index index.html index.htm; 
+    server_name localhost; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are eventually going to disable the default server block configuration, so we can place the &lt;code&gt;default_server&lt;/code&gt; option in either this server block or in the one for our other site. I’m going to leave the &lt;code&gt;default_server&lt;/code&gt; option enabled in this server block, but you can choose whichever is best for your situation.&lt;/p&gt;
+
+&lt;p&gt;The next thing we’re going to have to adjust is the document root, specified by the &lt;code&gt;root&lt;/code&gt; directive. Point it to the site’s document root that you created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;root /var/www/test.com/html;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Each Nginx statement &lt;em&gt;must&lt;/em&gt; end with a semi-colon (;), so check each of your lines if you are running into problems.&lt;/p&gt;
+
+&lt;p&gt;Next, we want to modify the &lt;code&gt;server_name&lt;/code&gt; to match requests for our first domain. We can additionally add any aliases that we want to match. We will add a &lt;code&gt;www.test.com&lt;/code&gt; alias to demonstrate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server_name test.com www.test.com;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you are finished, your file will look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /var/www/test.com/html; 
+    index index.html index.htm; 
+    server_name test.com www.test.com; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That is all we need for a basic configuration. Save and close the file to exit.&lt;/p&gt;
+
+&lt;h3 id="stepfourenableyourserverblock"&gt;Step four – Enable your server block&lt;/h3&gt;
+
+&lt;p&gt;We can do this by creating symbolic links from these files to the &lt;code&gt;sites-enabled&lt;/code&gt; directory, which Nginx reads from during startup.&lt;/p&gt;
+
+&lt;p&gt;We can create these links by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file are now in the enabled directory. However, the default server block file we used as a template is also enabled currently and will conflict with our file that has the &lt;code&gt;default_server&lt;/code&gt; parameter set.&lt;/p&gt;
+
+&lt;p&gt;We can disable the default server block file by simply removing the symbolic link. It will still be available for reference in the &lt;code&gt;sites-available&lt;/code&gt; directory, but it won’t be read by Nginx on startup:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo rm /etc/nginx/sites-enabled/default  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We also need to edit one setting really quickly in the default Nginx configuration file. Open it up by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/nginx/nginx.conf  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We just need to uncomment one line. Find and remove the comment from this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server_names_hash_bucket_size 64;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we are ready to restart Nginx to enable your changes. You can do that by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo service nginx restart  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nginx should now be serving your domain name.&lt;/p&gt;
+
+&lt;h3 id="stepfivesetuplocalhostsfile"&gt;Step five – Setup Local hosts file&lt;/h3&gt;
+
+&lt;p&gt;You can edit hosts file by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/hosts  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You need to add your domain local:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;127.0.0.1 localhost  
+127.0.0.1 guest-desktop  
+127.0.0.1 test.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will intercept any requests for &lt;code&gt;test.com&lt;/code&gt; and send them to your server, which is what we want if we don’t actually own the domains that we are using.&lt;/p&gt;
+
+&lt;p&gt;Save and close the file when you are finished.&lt;/p&gt;
+
+&lt;h3 id="stepsixtest"&gt;Step six – Test&lt;/h3&gt;
+
+&lt;p&gt;Now that you are all set up, you should test that your server blocks are functioning correctly. You can do that by visiting the domains in your web browser:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;http://test.com  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should see a page with message "Success".&lt;/p&gt;</content:encoded></item><item><title>How To Install Linux, Nginx, MySQL, PHP (LEMP) On Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;The LEMP software stack is a group of software that can be used to serve dynamic web pages and web applications. This is an acronym that describes a Linux operating system, with an Nginx web server. The backend data is stored in MySQL and the dynamic processing is handled&lt;/p&gt;</description><link>http://cuongbangoc.github.io/how-to-install-linux-nginx-mysql-php-lemp-on-ubuntu-14-04/</link><guid isPermaLink="false">c0bf94b7-a307-4cdb-863e-0bd5c5d45403</guid><category>LEMP</category><category>Linux</category><category>mysql</category><category>Nginx</category><category>php</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Tue, 24 Feb 2015 00:04:44 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;The LEMP software stack is a group of software that can be used to serve dynamic web pages and web applications. This is an acronym that describes a Linux operating system, with an Nginx web server. The backend data is stored in MySQL and the dynamic processing is handled by PHP. Nginx is one of the most popular web servers in the world and is responsible for hosting some of the largest and highest-traffic sites on the internet. It is more resource-friendly than Apache in most cases and can be used as a web server or a reverse proxy.&lt;/p&gt;
+
+&lt;p&gt;In this guide, I will show how to install Nginx Server and LEMP stack on Ubuntu 14.04.&lt;/p&gt;
+
+&lt;h3 id="steponeinstallnginxwebserver"&gt;Step one – Install Nginx Web Server&lt;/h3&gt;
+
+&lt;p&gt;We can install Nginx server by:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get update  
+sudo apt-get install nginx  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Ubuntu 14.04, Nginx is configured to start running upon installation. You can go to Nginx’s default page to test:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;http://server_domain_name_or_IP  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you see the Nginx page, you have successfully installed Nginx.&lt;/p&gt;
+
+&lt;h3 id="steptwoinstallmysql"&gt;Step two – Install MySQL&lt;/h3&gt;
+
+&lt;p&gt;MySQL Installation is the same install MySQL in &lt;a href="https://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/" title="Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04"&gt;LAMP&lt;/a&gt;. To install MySQL, you can typing in command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install mysql-server  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will be asked to supply a root (administrative) password for use within the MySQL system.&lt;/p&gt;
+
+&lt;p&gt;The MySQL database software is now installed, but its configuration is not exactly complete yet.&lt;/p&gt;
+
+&lt;p&gt;First, we need to tell MySQL to generate the directory structure it needs to store its databases and information. We can do this by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo mysql_install_db  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After that, you’ll want to run a simple security script that will prompt you to modify some insecure defaults. Begin the script by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo mysql_secure_installation  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will need to enter the MySQL root password that you selected during installation.&lt;/p&gt;
+
+&lt;p&gt;Next, it will ask if you want to change that password. If you are happy with your MySQL root password, type “N” for no and hit “ENTER”. Afterwards, you will be prompted to remove some test users and databases. You should just hit “ENTER” through these prompts to remove the unsafe default settings.&lt;/p&gt;
+
+&lt;p&gt;Once the script has been run, MySQL is ready to go.&lt;/p&gt;
+
+&lt;h3 id="stepthreeinstallphp"&gt;Step three – Install PHP&lt;/h3&gt;
+
+&lt;p&gt;Now we have Nginx installed to serve our pages and MySQL installed to store and manage our data, but we still need something to connect these two pieces and to generate dynamic content. We can use PHP for this.&lt;/p&gt;
+
+&lt;p&gt;Since Nginx does not contain native PHP processing like some other web servers, we will need to install &lt;strong&gt;&lt;em&gt;&lt;code&gt;php5-fpm&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;, which stands for “fastCGI process manager”. We will tell Nginx to pass PHP requests to this software for processing.&lt;/p&gt;
+
+&lt;p&gt;We can install this module and an additional helper package that will allow PHP to communicate with our database back-end. The installation will pull in the necessary PHP core files. Do this by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo apt-get install php5-fpm php5-mysql  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id="configurephpprocessor"&gt;Configure PHP Processor&lt;/h4&gt;
+
+&lt;p&gt;We now have our PHP components installed, but we need to make a slight configuration change to make our setup more secure.&lt;/p&gt;
+
+&lt;p&gt;Open the main &lt;code&gt;php5-fpm&lt;/code&gt; configuration file with root privileges:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/php5/fpm/php.ini  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we are looking for in this file is the parameter that sets &lt;code&gt;cgi.fix_pathinfo&lt;/code&gt;. This will be commented out with a semi-colon (;) and set to “1” by default.&lt;/p&gt;
+
+&lt;p&gt;This is an extremely insecure setting because it tells PHP to attempt to execute the closest file it can find if a PHP file does not match exactly. This basically would allow users to craft PHP requests in a way that would allow them to execute scripts that they shouldn’t be allowed to execute.&lt;/p&gt;
+
+&lt;p&gt;We will change both of these conditions by uncommenting the line and setting it to “0” like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;cgi.fix_pathinfo=0  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save and close the file when you are finished.&lt;/p&gt;
+
+&lt;p&gt;Now, we just need to restart our PHP processor by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo service php5-fpm restart  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will implement the change that we made.&lt;/p&gt;
+
+&lt;h3 id="stepfourconfigurenginxtousephpprocessor"&gt;Step four – configure Nginx to use PHP processor&lt;/h3&gt;
+
+&lt;p&gt;Now, we need to do is tell Nginx to use our PHP processor for dynamic content. We do this on the server block level (server blocks are similar to Apache’s virtual hosts). Open the default Nginx server block configuration file by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /etc/nginx/sites-available/default  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Currently, with the comments removed, the Nginx default server block file looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /usr/share/nginx/html; 
+    index index.html index.htm; 
+    server_name localhost; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We need to make some changes to this file for our site.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First, we need to add an &lt;code&gt;index.php&lt;/code&gt; option as the first value of our &lt;code&gt;index&lt;/code&gt; directive to allow PHP index files to be served when a directory is requested.&lt;/li&gt;
+&lt;li&gt;We also need to modify the &lt;code&gt;server_name&lt;/code&gt; directive to point to our server’s domain name or public IP address.&lt;/li&gt;
+&lt;li&gt;For the actual PHP processing, we will need to uncomment a portion of another section. We will also need to add a &lt;code&gt;try_files&lt;/code&gt; directive to make sure Nginx doesn’t pass bad requests to our PHP processor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The changes that you need to make are in red in the text below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;server {  
+    listen 80 default_server; 
+    listen [::]:80 default_server ipv6only=on; 
+    root /usr/share/nginx/html; 
+    index index.php index.html index.htm; 
+    server_name server_domain_name_or_IP; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html; 
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+    location ~ .php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    } 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you’ve made the above changes, you can save and close the file.&lt;/p&gt;
+
+&lt;p&gt;Restart Nginx to make the necessary changes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo service nginx restart  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="stepfivetest"&gt;Step Five — Test&lt;/h3&gt;
+
+&lt;p&gt;Your LEMP stack should now be completely set up. We still should test to make sure that Nginx can correctly hand &lt;code&gt;.php&lt;/code&gt; files off to our PHP processor.&lt;/p&gt;
+
+&lt;p&gt;We can do this by creating a test PHP file in our document root. Open a new file called &lt;code&gt;info.php&lt;/code&gt; within your document root in your text editor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo vim /usr/share/nginx/html/info.php  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can type this into the new file. This is valid PHP code that will return formatted information about our server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-php"&gt;&amp;lt;?php  
+phpinfo();  
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you are finished, save and close the file.&lt;/p&gt;
+
+&lt;p&gt;Now, you can visit this page in your web browser by visiting your server’s domain name or public IP address followed by &lt;code&gt;/info.php&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;http://server_domain_name_or_IP/info.php  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should see a web page that has been shown by PHP with information about your server.&lt;/p&gt;
+
+&lt;p&gt;You’ve set up PHP processing with Nginx successfully and You should now have a LEMP stack configured on your Ubuntu 14.04 server.&lt;/p&gt;</content:encoded></item><item><title>What is a Full Stack Developer?</title><description>&lt;h3 id="whatisafullstackdeveloper"&gt;What is a Full Stack Developer?&lt;/h3&gt;
+
+&lt;p&gt;To me, a full-stack developer is simply someone who is familiar with all layers in computer software development, will have specialized knowledge in all stages of software development. they make building software much easier as they understand how everything works from top to bottom.&lt;/p&gt;</description><link>http://cuongbangoc.github.io/what-is-a-full-stack-developer/</link><guid isPermaLink="false">727c1216-3e92-475b-a121-aee988ad8de6</guid><category>developer</category><category>full stack</category><category>full stack developer</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Fri, 13 Feb 2015 14:46:10 GMT</pubDate><content:encoded>&lt;h3 id="whatisafullstackdeveloper"&gt;What is a Full Stack Developer?&lt;/h3&gt;
+
+&lt;p&gt;To me, a full-stack developer is simply someone who is familiar with all layers in computer software development, will have specialized knowledge in all stages of software development. they make building software much easier as they understand how everything works from top to bottom. To be more specific, it means that the developer can work with databases, Server, Client, System and everything in between them.&lt;/p&gt;
+
+&lt;p&gt;A full-stack developer doesn’t need to master all of the areas and technologies he needs to work it, because that just makes it nearly impossible, he just needs to be comfortable working with those technologies.&lt;/p&gt;
+
+&lt;h3 id="howdoyoubecomeafullstackdeveloper"&gt;How do you become a Full Stack Developer?&lt;/h3&gt;
+
+&lt;p&gt;As talk about it above, to become a Full Stack Developer, you need to have knowledges about all layers in software development. From server, database, system to client and understanding what the customer and the business need. A full-stack developer should know about these technologies as well.&lt;/p&gt;
+
+&lt;h4 id="1serverenvironmentandsystemlayer"&gt;1) Server environment and system layer:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Server: Apache, Nginx, Tomcat …&lt;/li&gt;
+&lt;li&gt;Linux environment and basic shell script.&lt;/li&gt;
+&lt;li&gt;Search technologies: Solr,  Elastic search, Sphinx.&lt;/li&gt;
+&lt;li&gt;Monitoring: Nagios…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="2datamodeling"&gt;2) Data Modeling:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Relational database: MySQL, SQLServer, PostgreSQL, Oracle.&lt;/li&gt;
+&lt;li&gt;Non-Relational database: MongoDB, Redis, Memcache…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="3backendtech"&gt;3) Back-end Tech:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Programming languages server side: PHP, Java, Python, Ruby…&lt;/li&gt;
+&lt;li&gt;Webservice, API&lt;/li&gt;
+&lt;li&gt;Cache: Memcache…&lt;/li&gt;
+&lt;li&gt;XML / JSON, Restful…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="4frontendtech"&gt;4) Front-end Tech:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTML/ HTML5&lt;/li&gt;
+&lt;li&gt;CSS/ CSS3, bootstrap…&lt;/li&gt;
+&lt;li&gt;JS, Jquery and frameworks of JS&lt;/li&gt;
+&lt;li&gt;AJAX, JSON&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="5design"&gt;5) Design:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;UI/UX&lt;/li&gt;
+&lt;li&gt;Understand how to create good layout.&lt;/li&gt;
+&lt;li&gt;Understand how to create good user experience.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="6mobiletechnologies"&gt;6) Mobile technologies:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;iOS, Android…&lt;/li&gt;
+&lt;li&gt;Phonegap, Jquery Mobile…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="7understandingwhatthecustomerandthebusinessneed"&gt;7) Understanding what the customer and the business need.&lt;/h4&gt;
+
+&lt;p&gt;Clearly, it takes years of work experience in different languages roles and environments to reach this level of qualification. Because of this, full stack developers are few and value, making those who exist very employable and “hot”. And now, we will try to improve myself and to become a Full-Stack Developer in the near future. &lt;/p&gt;</content:encoded></item><item><title>Add and Delete User on Ubuntu 14.04</title><description>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;When you first create a new server, there are a few configuration steps that you should take early on as part of the basic setup. One of the most basic tasks to that you should know how to do on a fresh Linux server is add and remove users.&lt;/p&gt;</description><link>http://cuongbangoc.github.io/add-and-delete-user-on-ubuntu-14-04/</link><guid isPermaLink="false">af371cf4-505c-4952-b9fc-99c473b7e103</guid><category>Linux</category><category>sudo</category><category>user</category><category>user management</category><dc:creator>Cuong Ba Ngoc</dc:creator><pubDate>Thu, 12 Feb 2015 11:16:13 GMT</pubDate><content:encoded>&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;When you first create a new server, there are a few configuration steps that you should take early on as part of the basic setup. One of the most basic tasks to that you should know how to do on a fresh Linux server is add and remove users.&lt;/p&gt;
+
+&lt;p&gt;When you create a new server, you are only given the &lt;strong&gt;root&lt;/strong&gt; account by default. While this gives you a lot of power and flexibility, it is also dangerous and can be destructive. It is almost always a better idea to add an additional, unprivileged user to do common tasks. You also should create additional accounts for any other users you may have on your system. Each user should have a different account.&lt;/p&gt;
+
+&lt;p&gt;You should now have a fairly good handle on how to add and remove users from your Linux system. Effective user management will allow you to separate users and give them only the access that they are required to do their job.&lt;/p&gt;
+
+&lt;p&gt;You can still acquire administrator privileges when you need them through a mechanism called &lt;strong&gt;sudo&lt;/strong&gt;. In this article I will show you how to create user accounts, assign sudo privileges, and delete users.&lt;/p&gt;
+
+&lt;h3 id="addauser"&gt;Add a User&lt;/h3&gt;
+
+&lt;p&gt;If you are signed in as the &lt;strong&gt;root&lt;/strong&gt; user, you can create a new user at any time by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;adduser newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are signed in as a non-root user who has been given &lt;strong&gt;sudo&lt;/strong&gt; privileges, you can add a new user by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo adduser newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Either way, you will be asked a few questions. The procedure will be:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assign and confirm a password for the new user&lt;/li&gt;
+&lt;li&gt;Enter any additional information about the new user. This is entirely optional and can be skipped by hitting &lt;strong&gt;“ENTER”&lt;/strong&gt; if you don’t wish to utilize these fields.&lt;/li&gt;
+&lt;li&gt;Finally, you’ll be asked to confirm that the information you provided was correct. Type &lt;strong&gt;“Y”&lt;/strong&gt; to continue.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Your new user is now ready for use! Now, you can log in using the password which you set up.&lt;/p&gt;
+
+&lt;h3 id="assignsudoprivileges"&gt;Assign sudo privileges&lt;/h3&gt;
+
+&lt;p&gt;Now, we have a new user account with regular account privileges. However, we may sometimes need to do administrative tasks. And you will need to give the new user access to &lt;strong&gt;sudo&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id="optionone"&gt;Option one :&lt;/h4&gt;
+
+&lt;p&gt;To add these privileges to our new user, we need to add the new user to the &lt;code&gt;“sudo”&lt;/code&gt; group. By default, on Ubuntu 14.04, users who belong to the “sudo” group are allowed to use the &lt;code&gt;sudo&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;As &lt;strong&gt;root&lt;/strong&gt; user, run this command to add your new user to the &lt;em&gt;sudo&lt;/em&gt; group (substitute the highlighted word with your new user):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;gpasswd -a newuser sudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are signed in as a non-root user who has been given &lt;strong&gt;sudo&lt;/strong&gt; privileges, you can typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo gpasswd -a newuser sudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now your user can run commands with super user privileges!&lt;/p&gt;
+
+&lt;h4 id="optiontwo"&gt;Option two :&lt;/h4&gt;
+
+&lt;p&gt;We can do this by using the &lt;code&gt;visudo&lt;/code&gt; command, which opens the appropriate configuration file in your editor. This is the safest way to make these changes.&lt;/p&gt;
+
+&lt;p&gt;If you are currently signed in as the root user, type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;visudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are signed in using a non-root user with sudo privileges, type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo visudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for the line that looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;root    ALL=(ALL:ALL) ALL  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below this line, copy the format you see here, changing only the word “root” to reference the new user that you would like to give sudo privileges to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;root ALL=(ALL:ALL) ALL newuser ALL=(ALL:ALL) ALL  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should add a new line like this for each user that should be given full sudo privileges. When you are finished, you can save and close the file by hitting &lt;code&gt;CTRL-X&lt;/code&gt;, followed by “Y”, and then hit “ENTER” to confirm.&lt;/p&gt;
+
+&lt;p&gt;Now, your new user is able to execute commands with administrative privileges.&lt;/p&gt;
+
+&lt;h3 id="deleteuser"&gt;Delete User&lt;/h3&gt;
+
+&lt;p&gt;In the case that you no longer need a user, it is best to delete the old account.&lt;/p&gt;
+
+&lt;p&gt;You can delete the user itself, without deleting any files of user by typing this as root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;deluser newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are signed in as another non-root user with sudo privileges, you could type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo deluser newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If, instead, you want to delete the user’s home directory when the user is deleted, you can issue the following command as root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;deluser --remove-home newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are signed in as another non-root user with sudo privileges, you could type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo deluser --remove-home newuser  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you had configured sudo privileges for the user you deleted, you may want to remove the relevant line again by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;visudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or use this if you are a non-root user with sudo privileges:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;sudo visudo  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class="language-prettyprint lang-bash"&gt;root    ALL=(ALL:ALL) ALL  
+newuser ALL=(ALL:ALL) ALL   # DELETE THIS LINE  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remove the line of user in this file and save, close file. So, you are finish to delete user.&lt;/p&gt;</content:encoded></item></channel></rss>
