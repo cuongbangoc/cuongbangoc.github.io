@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04</title>
+
+  <meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="../assets/img/apple-touch-icon-57x57.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="60x60" href="../assets/img/apple-touch-icon-60x60.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="72x72" href="../assets/img/apple-touch-icon-72x72.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-icon-76x76.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="114x114" href="../assets/img/apple-touch-icon-114x114.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="120x120" href="../assets/img/apple-touch-icon-120x120.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="144x144" href="../assets/img/apple-touch-icon-144x144.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="152x152" href="../assets/img/apple-touch-icon-152x152.png?v=wAAv6Wqe6l">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon-180x180.png?v=wAAv6Wqe6l">
+<link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png?v=wAAv6Wqe6l" sizes="32x32">
+<link rel="icon" type="image/png" href="../assets/img/favicon-194x194.png?v=wAAv6Wqe6l" sizes="194x194">
+<link rel="icon" type="image/png" href="../assets/img/favicon-96x96.png?v=wAAv6Wqe6l" sizes="96x96">
+<link rel="icon" type="image/png" href="../assets/img/android-chrome-192x192.png?v=wAAv6Wqe6l" sizes="192x192">
+<link rel="icon" type="image/png" href="../assets/img/favicon-16x16.png?v=wAAv6Wqe6l" sizes="16x16">
+<link rel="manifest" href="../assets/img/manifest.json?v=wAAv6Wqe6l">
+<link rel="shortcut icon" href="../assets/img/favicon.ico?v=wAAv6Wqe6l">
+<meta name="msapplication-TileColor" content="#e74c3c">
+<meta name="msapplication-TileImage" content="/assets/img/mstile-144x144.png?v=wAAv6Wqe6l">
+<meta name="msapplication-config" content="/assets/img/browserconfig.xml?v=wAAv6Wqe6l">
+<meta name="theme-color" content="#e74c3c">
+
+  <link rel="stylesheet" type="text/css" href="../assets/css/uno.css?v=40fb1f9047" />
+
+  <link rel="canonical" href="http://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/" />
+    
+    <meta property="og:site_name" content="CuongBN - Just Do It" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04" />
+    <meta property="og:description" content="Introduction A “LAMP” stack is a group of open source software that is typically installed together to enable a server to host dynamic websites and web apps. This term is actually an acronym which represents the Linux operating system, with..." />
+    <meta property="og:url" content="http://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/" />
+    <meta property="article:published_time" content="2015-02-09T00:01:41.000Z" />
+    <meta property="article:modified_time" content="2015-08-30T09:36:58.179Z" />
+    <meta property="article:tag" content="apache" />
+    <meta property="article:tag" content="lamp" />
+    <meta property="article:tag" content="Linux" />
+    <meta property="article:tag" content="mysql" />
+    <meta property="article:tag" content="php" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04" />
+    <meta name="twitter:description" content="Introduction A “LAMP” stack is a group of open source software that is typically installed together to enable a server to host dynamic websites and web apps. This term is actually an acronym which represents the Linux operating system, with..." />
+    <meta name="twitter:url" content="http://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "CuongBN - Just Do It",
+    "author": {
+        "@type": "Person",
+        "name": "Cuong Ba Ngoc",
+        "image": "//www.gravatar.com/avatar/6d6e584a65d5852e400df206334e72b1?s=250&d=mm&r=x",
+        "url": "http://cuongbangoc.github.io/author/cuongbangoc",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04",
+    "url": "http://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/",
+    "datePublished": "2015-02-09T00:01:41.000Z",
+    "dateModified": "2015-08-30T09:36:58.179Z",
+    "keywords": "apache, lamp, Linux, mysql, php",
+    "description": "Introduction A “LAMP” stack is a group of open source software that is typically installed together to enable a server to host dynamic websites and web apps. This term is actually an acronym which represents the Linux operating system, with..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6" />
+    <link rel="alternate" type="application/rss+xml" title="CuongBN - Just Do It" href="http://cuongbangoc.github.io/rss/" />
+    <script>
+var profile_title = 'Cuong Ba Ngoc';
+var profile_resume ='Software Engineer';
+</script>
+
+</head>
+<body class="post-template tag-apache tag-lamp tag-linux tag-mysql tag-php">
+
+  <section id="menu-button" class="expanded">
+    <a><i class="icon icon-list"></i></a>
+  </section>
+
+  <aside class="cover">
+
+  <div class="cover container">
+    <div class="profile">
+      <a id="avatar-link" title="link to homepage for CuongBN - Just Do It" href="http://cuongbangoc.github.io/#open">
+        <img src="../content/images/2015/08/avatar.jpg" alt="CuongBN - Just Do It avatar" class="profile avatar rounded hvr-buzz-out" />
+        <h1 id="profile-title">CuongBN - Just Do It</h1>
+        <h3 id="profile-resume"></h3>
+      </a>
+
+      <hr class="divider long" />
+      <p>Software Engineer, I&#x27;m a man passionate about programming languages, new technologies and open-sources...</p>
+      <hr class="divider short" />
+      <div class="navigation">
+        <div class="profile contact">
+          <nav class="navigation left">
+  <ul class="links">
+    <li class="links item">
+      <a href="http://cuongbangoc.github.io/#open" class="link-item" title="CuongBN - Just Do It blog" id="blog-button">Blog</a>
+        <a href="../index.html" class="link-item" id="-button">Home</a>
+        <a href="../about/index.html" class="link-item" id="-button">About</a>
+    </li>
+  </ul>
+</nav>
+          
+<nav class="navigation right">
+  <ul class="social expanded">
+
+  <!-- Twitter -->
+  <!--<li class="social item hvr-grow-rotate">
+    <a target="blank" href="http://twitter.com/kikobeats" title="@Kikobeats on Twitter">
+      <i class='icon icon-social-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li> -->
+
+  <!-- Linkedin -->
+  <li class="social item hvr-grow-rotate">
+    <a target="blank" href="http://linkedin.com/in/cuongbangoc" title="CuongBaNgoc on LinkedIn">
+      <i class='icon icon-social-linkedin'></i>
+      <span class="label">Linkedin</span>
+    </a>
+  </li>
+
+  <!-- Github -->
+  <li class="social item hvr-grow-rotate">
+    <a target="blank" href="https://github.com/cuongbangoc" title="CuongBaNgoc on Github">
+      <i class='icon icon-social-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Facebook -->
+    <li class="social item hvr-grow-rotate">
+      <a target="blank" href="http://facebook.com/ngoccuongkaka" title="CuongBaNgoc on Facebook">
+        <i class='icon icon-social-facebook'></i>
+        <span class="label">Facebook</span>
+      </a>
+    </li>
+
+  <!-- RSS -->
+  <li class="social item hvr-grow-rotate">
+    <a href="../rss/index.html" title="Subscribe to RSS">
+      <i class='icon icon-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          <section class="icon icon-search" id="search-container">
+  <hr class="divider short" />
+  <form id="search-form">
+    <input type="text", name="search", placeholder="git, css, javascript,..." id="search-field" />
+  </form>
+</section>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+  <main>
+    <section id="search-results"></section>
+    <section class="content">
+      
+
+  <article class="post tag-apache tag-lamp tag-linux tag-mysql tag-php">
+    <header>
+      <div class="post meta">
+        <time datetime="09 Feb 2015">09 Feb 2015</time>
+        <span class="post tags">in <a href="../tag/apache/index.html">apache</a> <a href="../tag/lamp/index.html">lamp</a> <a href="../tag/linux/index.html">Linux</a> <a href="../tag/mysql/index.html">mysql</a> <a href="../tag/php/index.html">php</a></span>
+
+
+        <span class="post reading-time"> ~ <span></span> read.</span>
+      </div>
+
+      <a alt="Tweet 'Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04'" href="https://twitter.com/intent/tweet?text=Install%20Linux%2C%20Apache%2C%20MySQL%2C%20PHP%20(LAMP)%20on%20Ubuntu%2014.04 %20%C2%BB%20&amp;url=http://cuongbangoc.github.io/install-linux-apache-mysql-php-lamp-on-ubuntu-14-04/" >
+        
+        <h1 class="icon-reverse icon-social-twitter-post" id="post-title">Install Linux, Apache, MySQL, PHP (LAMP) on Ubuntu 14.04</h1>
+      </a>
+    </header>
+
+    <div id="post-content" class="post tag-apache tag-lamp tag-linux tag-mysql tag-php">
+      <h3 id="introduction">Introduction</h3>
+
+<p>A “LAMP” stack is a group of open source software that is typically installed together to enable a server to host dynamic websites and web apps. This term is actually an acronym which represents the <strong>L</strong>inux operating system, with the <strong>A</strong>pache web server. The site data is stored in a <strong>M</strong>ySQL database, and dynamic content is processed by <strong>P</strong>HP.</p>
+
+<p>In this guide, we’ll get a LAMP stack installed on an Ubuntu 14.04 Droplet. Ubuntu will fulfill our first requirement: a Linux operating system.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>Before you begin with this guide, you should have a separate, non-root user account set up on your server.</p>
+
+<h3 id="steponeinstallapache">Step One — Install Apache</h3>
+
+<p>The Apache web server is currently the most popular web server in the world, which makes it a great default choice for hosting a website.</p>
+
+<p>We can install Apache easily using Ubuntu’s package manager, <code>apt</code>. A package manager allows us to install most software pain-free from a repository maintained by Ubuntu.</p>
+
+<p>For our purposes, we can get started by typing these commands:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo apt-get update  
+sudo apt-get install apache2  
+</code></pre>
+
+<p>Since we are using a <code>sudo</code> command, these operations get executed with root privileges. It will ask you for your regular user’s password to verify your intentions.</p>
+
+<p>Afterwards, your web server is installed.</p>
+
+<p>You can do a spot check right away to verify that everything went as planned by visiting your server’s public IP address in your web browser (see the note under the next heading to find out what your public IP address is if you do not have this information already):</p>
+
+<pre><code>http://your_server_IP_address  
+</code></pre>
+
+<p>You will see the default Ubuntu 14.04 Apache web page, which is there for informational and testing purposes. If you see the Apache page, then your web server is now correctly installed.</p>
+
+<h3 id="steptwoinstallmysql">Step Two — Install MySQL</h3>
+
+<p>Now that we have our web server up and running, it is time to install MySQL. MySQL is a database management system. Basically, it will organize and provide access to databases where our site can store information.</p>
+
+<p>Again, we can use <code>apt</code> to acquire and install our software. This time, we’ll also install some other “helper” packages that will assist us in getting our components to communicate with each other:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo apt-get install mysql-server php5-mysql  
+</code></pre>
+
+<p><strong>Note</strong>: In this case, you do not have to run <code>sudo apt-get update</code> prior to the command. This is because we recently ran it in the commands above to install Apache. The package index on our computer should already be up-to-date.</p>
+
+<p>During the installation, your server will ask you to select and confirm a password for the MySQL “root” user. This is an administrative account in MySQL that has increased privileges. Think of it as being similar to the root account for the server itself (the one you are configuring now is a MySQL-specific account however).</p>
+
+<p>When the installation is complete, we need to run some additional commands to get our MySQL environment set up securely.</p>
+
+<p>First, we need to tell MySQL to create its database directory structure where it will store its information. You can do this by typing:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo mysql_install_db  
+</code></pre>
+
+<p>Afterwards, we want to run a simple security script that will remove some dangerous defaults and lock down access to our database system a little bit. Start the interactive script by running:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo mysql_secure_installation  
+</code></pre>
+
+<p>You will be asked to enter the password you set for the MySQL root account. Next, it will ask you if you want to change that password. If you are happy with your current password, type <strong>“n”</strong> for “no” at the prompt.</p>
+
+<p>For the rest of the questions, you should simply hit the “ENTER” key through each prompt to accept the default values. This will remove some sample users and databases, disable remote root logins, and load these new rules so that MySQL immediately respects the changes we have made.</p>
+
+<p>At this point, your database system is now set up and we can move on.</p>
+
+<h3 id="stepthreeinstallphp">Step Three — Install PHP</h3>
+
+<p>PHP is the component of our setup that will process code to display dynamic content. It can run scripts, connect to our MySQL databases to get information, and hand the processed content over to our web server to display.</p>
+
+<p>We can once again leverage the <code>apt</code> system to install our components. We’re going to include some helper packages as well:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt  
+</code></pre>
+
+<p>This should install PHP without any problems. We’ll test this in a moment.</p>
+
+<p>In most cases, we’ll want to modify the way that Apache serves files when a directory is requested. Currently, if a user requests a directory from the server, Apache will first look for a file called<code>index.html</code>. We want to tell our web server to prefer PHP files, so we’ll make Apache look for an<code>index.php</code> file first.</p>
+
+<p>To do this, type this command to open the <code>dir.conf</code> file in a text editor (Vim) with root privileges:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo vi /etc/apache2/mods-enabled/dir.conf  
+</code></pre>
+
+<p>It will look like this:</p>
+
+<pre><code class="language-prettyprint lang-bash">&lt;IfModule mod_dir.c&gt;  
+DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm  
+&lt;/IfModule&gt;
+</code></pre>
+
+<p>We want to move the PHP index file highlighted above to the first position after the <code>DirectoryIndex</code>specification, like this:</p>
+
+<p><IfModule mod_dir.c> DirectoryIndex <span class="highlight">index.php</span> index.html index.cgi index.pl index.xhtml index.htm </IfModule></p>
+
+<p>Pressing key <strong>“i”</strong> or <strong>“insert”</strong> in your keyboard to go to “insert mode” of Vim editor, you can edit this file and when you are finished, save and close the file by pressing <strong>“ESC”</strong> to back “command mode” of Vim and type <strong>“:wq”</strong>, then hit <strong>“ENTER”</strong>. I will have a article to talk about Vim editor.</p>
+
+<p>After this, we need to restart the Apache web server in order for our changes to be recognized. You can do this by typing this:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo service apache2 restart  
+</code></pre>
+
+<p>At this point, your LAMP stack is installed and configured. We should still test out our PHP though.</p>
+
+<h3 id="stepfourtestphpprocessingonyourwebserver">Step Four — Test PHP Processing on your Web Server</h3>
+
+<p>In order to test that our system is configured properly for PHP, we can create a very basic PHP script.</p>
+
+<p>We will call this script <code>info.php</code>. In order for Apache to find the file and serve it correctly, it must be saved to a very specific directory, which is called the “web root”.</p>
+
+<p>In Ubuntu 14.04, this directory is located at <code>/var/www/html/</code>. We can create the file at that location by typing:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo vi /var/www/html/info.php  
+</code></pre>
+
+<p>This will open a blank file. We want to put the following text, which is valid PHP code, inside the file:</p>
+
+<pre><code class="language-prettyprint lang-php">&lt;?php  
+phpinfo();  
+?&gt;
+</code></pre>
+
+<p>When you are finished, save and close the file.</p>
+
+<p>Now we can test whether our web server can correctly display content generated by a PHP script. To try this out, we just have to visit this page in our web browser. You’ll need your server’s public IP address again.</p>
+
+<p>The address you want to visit will be:</p>
+
+<pre><code>http://your_server_IP_address/info.php  
+</code></pre>
+
+<p>This page basically gives you information about your server from the perspective of PHP. It is useful for debugging and to ensure that your settings are being applied correctly.</p>
+
+<p>If this was successful, then your PHP is working as expected.</p>
+
+<p>You probably want to remove this file after this test because it could actually give information about your server to unauthorized users. To do this, you can type this:</p>
+
+<pre><code class="language-prettyprint lang-bash">sudo rm /var/www/html/info.php  
+</code></pre>
+
+<p>You can always recreate this page if you need to access the information again later. Now that you have a LAMP stack installed, you have many choices for what to do next. Basically, you’ve installed a platform that will allow you to install most kinds of websites and web software on your server.</p>
+
+<p>Reference: digitalocean</p>
+    </div>
+
+    <div class="post related">
+
+        <a rel="next" id="next-btn" class="btn small square" href="../installing-and-using-vim-editor-on-linux/index.html">Installing and Using Vim Editor on Linux →</a>
+    </div>
+
+    <footer class="post comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + window.disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</footer>
+
+  </article>
+
+
+      <footer>
+  <span class="copyright">
+   <a href="http://cuongbangoc.github.io" style="font-weight: bold;">CuongBa Blog</a> &copy; 2015. All rights reserved. Built with <a href="https://ghost.org/" target="_blank">Ghost</a> and <a href="https://github.com/Kikobeats/uno-zen" target="_blank">Uno Zen</a> theme.
+  </span>
+</footer>
+    </section>
+  </main>
+
+  <script src="../public/jquery.js?v=40fb1f9047"></script>
+  <script type="text/javascript" src="../assets/js/run_prettify.js?v=40fb1f9047"></script>
+  <script type="text/javascript" src="../assets/js/uno.js?v=40fb1f9047"></script>
+  <script>
+  if (window.ga_id) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', window.ga_id, 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('send', 'pageview');
+  }
+</script>
+</body>
+</html>
